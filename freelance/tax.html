@@ -9,16 +9,17 @@
 
 <style>
 * { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; }
-body { text-align:center; margin:0px; margin-left:auto; margin-right:auto; background:#f9f9f9; }
+body { margin:auto; text-align:center; background:#f9f9f9; margin-bottom:50px; }
 
-div#page { text-align:left; font-size:9pt; }
+div#page { text-align:center; font-size:9pt; margin:auto; width:400px; }
+div#page > * { text-align:left; }
 
 table.table.border { border-collapse: separate; border-spacing: 1px; background:#DDD; }
 table.table.border > thead, table.table.border > tbody { background:#f9f9f9; }
 table.table > thead > tr > th, table.table > tbody > tr > th { background:#EEE; font-weight:bold; padding:5px 10px; }
 table.table > tbody > tr > td { padding:5px 10px; }
 table.table > tbody > tr > td.number { text-align:right; }
-.diagonal { background-image: linear-gradient(-45deg, #fff 25%, #ccc 25%, #ccc 50%, #fff 50%, #fff 75%, #ccc 75%, #ccc)!important; background-size: 4px 4px !important; }
+.diagonal { background-image: linear-gradient(-45deg, #fff 25%, #eee 25%, #eee 50%, #fff 50%, #fff 75%, #eee 75%, #eee)!important; background-size: 4px 4px !important; }
 </style>
 
 <script>
@@ -97,7 +98,7 @@ window.onload=()=>{tax.render();}
 	</template>
 
 	<div id="page">
-		<table id="tax-table" class="table border">
+		<table id="tax-table" class="table border" style="width:400px;">
 			<thead>
 				<tr><th colspan=2 class="diagonal"></th><th>月間</th><th>年間</th></tr>
 			</thead>
