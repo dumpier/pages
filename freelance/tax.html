@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>年金・保険・税金の計算</title>
+</head>
+
+<style>
+* { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; }
+body { text-align:center; margin:0px; margin-left:auto; margin-right:auto; background:#f9f9f9; }
+
+div#page { text-align:left; font-size:9pt; }
+
+table.table.border { border-collapse: separate; border-spacing: 1px; background:#DDD; }
+table.table.border > thead, table.table.border > tbody { background:#f9f9f9; }
+table.table > thead > tr > th, table.table > tbody > tr > th { background:#EEE; font-weight:bold; padding:5px 10px; }
+table.table > tbody > tr > td { padding:5px 10px; }
+table.table > tbody > tr > td.number { text-align:right; }
+.diagonal { background-image: linear-gradient(-45deg, #fff 25%, #ccc 25%, #ccc 50%, #fff 50%, #fff 75%, #ccc 75%, #ccc)!important; background-size: 4px 4px !important; }
+</style>
+
+<script>
+var js = js || {
+	// タイプの取得
+	type:(obj)=>{ return Object.prototype.toString.call(obj).slice(8,-1) || typeof(obj); },
+	get:(name)=>{ return document.querySelectorAll(name); },
+	first:(name)=>{ return document.querySelector(name); },
+
+	// elementへの操作関数
+	handle:(name, string)=>{
+		const el = js.get(name);
+		js.type(el)=="NodeList" ? el.forEach(function(sub){ sub.innerHTML = string; }) : el.innerHTML = string;
+		return el;
+	},
+	
+	// htmlの代入
+	html:(name, string)=>{ 
+		const el = js.get(name);
+		js.type(el)=="NodeList" ? el.forEach(function(sub){ sub.innerHTML = string; }) : el.innerHTML = string;
+		return el;
+	},
+};
+
+var tax = tax || {
+	items:[ 
+		["収入", "売上", "売上（補正用）"],
+		["経費", "経費", "経費（補正用）"],
+		["控除一覧", "基礎控除", "青色申告控除", "社会保険料控除", "小規模企業共済等掛金控除", "生命保険料控除", "地震保険料控除", "配偶者控除・配偶者特別控除", "扶養控除", "医療費控除", "控除（補正用）"],
+		["課税所得額", "※国民健康保険年間所得額", "※課税所得額による所得税率"],
+		[],
+		["合計税金", "住民税・均等割", "住民税・所得割", "個人事業税", "所得税", "消費税", "税金（補正用）"],
+		[],
+		["年金", "国民年金", "年金（補正用）"],
+		[],
+		["保険", "国民健康保険・平等割", "国民健康保険・均等割", "国民健康保険・所得割", "国民健康保険・後期高齢者(支援)", "国民健康保険・後期高齢者(介護)", "保険（補正用）"],
+		[],
+		["結果", "年金・保険・税金の合計", "手取り額"],
+	],
+
+	render:(items)=>{
+		let html = "";
+		(items || tax.items).forEach(function(item, i){
+			console.log(item);
+			if (item.length==0) {
+				html += "<tr><td colspan=4>&nbsp;</td></tr>"
+				return ;
+			}
+
+			item.forEach(function(name, ii) {
+				if (ii==0) {
+					html += `<tr><th colspan=2>${name}</th><td></td><td></td></tr>`;
+				} else if (ii==1) {
+					html += `<tr><th rowspan=${item.length-1}></th><td>${name}</td><td></td><td> </td></tr>`;
+				} else {
+					html += `<tr><td>${name}</td><td></td><td> </td></tr>`;
+				}
+			});
+		});
+
+		js.html("#tax-table tbody", html);
+	},
+};
+
+window.onload=()=>{tax.render();}
+</script>
+
+
+<body>
+	<h1>個人事業主の税金計算</h1>
+
+	<template>
+				<tr><th colspan=2>合計収入</th><td></td><td></td></tr>
+				<tr><th rowspan=2></th><td>売上</td><td></td><td></td></tr>
+				<tr><td>売上（補正）</td><td></td><td></td></tr>
+	</template>
+
+	<div id="page">
+		<table id="tax-table" class="table border">
+			<thead>
+				<tr><th colspan=2 class="diagonal"></th><th>月間</th><th>年間</th></tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+
+</body>
+</html>
