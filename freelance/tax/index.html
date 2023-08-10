@@ -19,13 +19,13 @@
                         <tr><th colspan="2" class="diagonal">入力用</th><th>月間(万円)</th><th>年間(万円)</th></tr>
                     </thead>
                     <tbody>
-                        <tr><th colspan="2">収入</th><td class="amount" id="monthly-1-0"></td><td class="amount" id="yearly-1-0"></td></tr>
-                        <tr><th rowspan="2"></th><td>売上</td><td class="amount income" id="monthly-1-1"></td><td class="amount" id="yearly-1-1"><input type="text" class="amount income" id="input-yearly-1-1" value=""></td></tr>
+                        <tr><th colspan="2">収入</th><td class="amount" id="monthly-1-0"></td><td class="amount bold" id="yearly-1-0"></td></tr>
+                        <tr><th rowspan="2"></th><td>売上</td><td class="amount income" id="monthly-1-1"></td><td class="amount" id="yearly-1-1"><input type="text" class="amount income" id="input-yearly-1-1" value="600"></td></tr>
                         <tr><td>売上（補正用）</td><td class="amount income" id="monthly-1-2"></td><td class="amount" id="yearly-1-2"><input type="text" class="amount income" id="input-yearly-1-2" value=""></td></tr>
-                        <tr><th colspan="2">経費</th><td class="amount cost" id="monthly-2-0"></td><td class="amount cost" id="yearly-2-0"></td></tr>
-                        <tr><th rowspan="2"></th><td>経費</td><td class="amount cost" id="monthly-2-1"></td><td class="amount" id="yearly-2-1"><input type="text" class="amount cost" id="input-yearly-2-1" value=""></td></tr>
+                        <tr><th colspan="2">経費</th><td class="amount cost" id="monthly-2-0"></td><td class="amount cost bold" id="yearly-2-0"></td></tr>
+                        <tr><th rowspan="2"></th><td>経費</td><td class="amount cost" id="monthly-2-1"></td><td class="amount" id="yearly-2-1"><input type="text" class="amount cost" id="input-yearly-2-1" value="200"></td></tr>
                         <tr><td>経費（補正用）</td><td class="amount cost" id="monthly-2-2"></td><td class="amount" id="yearly-2-2"><input type="text" class="amount cost" id="input-yearly-2-2" value=""></td></tr>
-                        <tr><th colspan="2">控除</th><td></td><td></td></tr>
+                        <tr><th colspan="2">控除</th><td class="amount cost" id="monthly-3-0"></td><td class="amount cost" id="yearly-3-0"></td></tr>
                         <tr><th rowspan="10"></th><td>基礎控除</td><td class="amount cost" id="monthly-3-1"></td><td class="amount" id="yearly-3-1"><input type="text" class="amount cost" id="input-yearly-3-1" value="48"></td></tr>
                         <tr><td>青色申告控除</td><td class="amount cost" id="monthly-3-2"></td><td class="amount" id="yearly-3-2"><input type="text" class="amount cost" id="input-yearly-3-2" value="65"></td></tr>
                         <tr><td>社会保険料控除</td><td class="amount cost" id="monthly-3-3"></td><td class="amount" id="yearly-3-3"><input type="text" class="amount cost" id="input-yearly-3-3" value=""></td></tr>
@@ -77,29 +77,42 @@
 </body>
 <script>
 $(function(){
+    tax.refresh();
     $(document).on("change", `input[type="text"].amount`, function(){ tax.refresh($(this));});
-
 });
 
 var tax = tax || {
     refresh:($el)=>{
         console.log($(`input[type="text"].amount`).get());
-        let total_income = 0 ;
-        let total_amount = 0;
+        let total_income = total_cost = total_allowable = total_amount = 0;
+
         $(`input[type="text"].amount`).get().forEach(function(text){
             $text = $(text);
-            let css_id = $text.prop("id").replace(/input-yearly-/, "");
-            let amount_yearly = ($text.hasClass("cost") ? -1:1) * Number($text.val());
-            let amount_monthly = (amount_yearly/12).toFixed(1);
-            $(`#monthly-${css_id}`).text(amount_yearly ? amount_monthly : "");
+            let css_id = $text.prop("id");
+            let css_id_common = $text.prop("id").replace(/input-yearly-/, "");
 
-            total_amount += amount_yearly;
-            total_income += $text.hasClass("income") ? amount_yearly : 0;
+            let amount = Number($text.val());
+            let amount_monthly = (amount/12).toFixed(1);
+            $(`#monthly-${css_id_common}`).text(amount ? amount_monthly : "");
 
+            let plus_minuse = $text.hasClass("cost")? -1 : 1;
+
+            // 合計収入
+            total_income += $text.hasClass("income") ? plus_minuse*amount : 0;
+            // 課税所得額
+            total_amount += plus_minuse*amount;
+            // 合計経費
+            total_cost += css_id.match(/^input-yearly-2/) ? amount : 0;
+            // 合計控除
+            total_allowable += css_id.match(/^input-yearly-3/) ? amount : 0;
         });
 
         // 合計売上
         $(`#yearly-1-0`).text(total_income);
+        // 合計経費
+        $(`#yearly-2-0`).text(total_cost);
+        // 合計控除
+        $(`#yearly-3-0`).text(total_allowable);
 
         // 課税所得額
         $(`#yearly-4-0`).text(total_amount);
@@ -107,10 +120,8 @@ var tax = tax || {
         let insurance = total_amount-43;
         $(`#yearly-4-1`).text(insurance);
         // 課税所得額による所得税率
-        let income_tax_rate = insurance<=195 ? 5 : (insurance <= 330 ? 10 : (insurance <= 695 ? 20 : 24));
+        let income_tax_rate = total_amount<=195 ? 5 : (total_amount <= 330 ? 10 : (total_amount <= 695 ? 20 : 24));
         $(`#yearly-4-2`).text(`${income_tax_rate}%`);
-
-
     },
 }
 </script>
