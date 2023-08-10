@@ -1,6 +1,7 @@
 window.onload=()=>{
 	tax.render("#render-1");
     $("input[type=text].amount").on("change", function(){ tax.amount.change(); });
+    $("input[type=text].age").on("change", function(){ tax.amount.change(); });
 }
 
 var tax = tax || {

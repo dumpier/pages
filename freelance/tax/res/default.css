@@ -19,4 +19,8 @@ input { border-radius:5px; padding:3px 5px; border:solid 1px #AAA; }
 input[type=text].amount { width: 50px; }
 .amount.cost { color:red; }
 .amount { text-align:right; }
+
+input[type=text].age { width: 50px; }
+.right { text-align:right; }
+
 .bold { font-weight: bold; }
