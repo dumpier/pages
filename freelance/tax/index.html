@@ -23,7 +23,7 @@
                         <tr><th rowspan="2"></th><td>売上</td><td class="amount income" id="monthly-1-1"></td><td class="amount" id="yearly-1-1"><input type="text" class="amount income" id="input-yearly-1-1" value="600"></td></tr>
                         <tr><td>売上（補正用）</td><td class="amount income" id="monthly-1-2"></td><td class="amount" id="yearly-1-2"><input type="text" class="amount income" id="input-yearly-1-2" value=""></td></tr>
                         <tr><th colspan="2">経費</th><td class="amount cost" id="monthly-2-0"></td><td class="amount cost bold" id="yearly-2-0"></td></tr>
-                        <tr><th rowspan="2"></th><td>経費</td><td class="amount cost" id="monthly-2-1"></td><td class="amount" id="yearly-2-1"><input type="text" class="amount cost" id="input-yearly-2-1" value=""></td></tr>
+                        <tr><th rowspan="2"></th><td>経費</td><td class="amount cost" id="monthly-2-1"></td><td class="amount" id="yearly-2-1"><input type="text" class="amount cost" id="input-yearly-2-1" value="200"></td></tr>
                         <tr><td>経費（補正用）</td><td class="amount cost" id="monthly-2-2"></td><td class="amount" id="yearly-2-2"><input type="text" class="amount cost" id="input-yearly-2-2" value=""></td></tr>
                         <tr><th colspan="2">控除</th><td class="amount cost" id="monthly-3-0"></td><td class="amount cost bold" id="yearly-3-0"></td></tr>
                         <tr><th rowspan="10"></th><td>基礎控除</td><td class="amount cost" id="monthly-3-1"></td><td class="amount" id="yearly-3-1"><input type="text" class="amount cost" id="input-yearly-3-1" value="48"></td></tr>
@@ -36,9 +36,30 @@
                         <tr><td>扶養控除</td><td class="amount cost" id="monthly-3-8"></td><td class="amount" id="yearly-3-8"><input type="text" class="amount cost" id="input-yearly-3-8" value=""></td></tr>
                         <tr><td>医療費控除</td><td class="amount cost" id="monthly-3-9"></td><td class="amount" id="yearly-3-9"><input type="text" class="amount cost" id="input-yearly-3-9" value=""></td></tr>
                         <tr><td>控除（補正用）</td><td class="amount cost" id="monthly-3-10"></td><td class="amount" id="yearly-3-10"><input type="text" class="amount cost" id="input-yearly-3-10" value=""></td></tr>
-                        <tr><th colspan="2">課税所得額</th><td></td class="amount" id="monthly-4-0"><td class="amount bold" id="yearly-4-0"></td></tr>
-                        <tr><th rowspan="2"></th><td>※国民健康保険年間所得額</td><td class="amount" id="monthly-4-1"></td><td class="amount bold" id="yearly-4-1"></td></tr>
-                        <tr><td>※課税所得額による所得税率</td><td class="amount" id="monthly-4-2"></td><td class="amount bold" id="yearly-4-2"></td></tr>
+                        <tr><th colspan="2"><span style="color:blue;">課税所得額</span></th><td></td class="amount" id="monthly-4-0"><td class="amount bold" id="yearly-4-0"></td></tr>
+                        <tr><th rowspan="2"></th>
+                            <td>
+                                <span class="balloon-wrap">国民健康保険年間所得額
+                                    <span class="balloon">※<span style="color:blue;">課税所得額</span>-43万円</span>
+                                </span>
+                            </td>
+                            <td class="amount" id="monthly-4-1"></td><td class="amount bold" id="yearly-4-1"></td></tr>
+                        <tr>
+                            <td>
+                                <span class="balloon-wrap">課税所得額による所得税率
+                                    <span class="balloon"><span style="color:blue;">※課税所得額</span>より変動します。
+                                        <br>　・195万以下、5%
+                                        <br>　・330万以下、10%
+                                        <br>　・695万以下、20%
+                                        <br>　・900万以下、23%
+                                        <br>　・1800万以下、33%
+                                        <br>　・4000万以下、40%
+                                        <br>　・4000万以上、45%
+                                    </span>
+                                </span>
+                            </td>
+                            <td class="amount" id="monthly-4-2"></td><td class="amount bold" id="yearly-4-2"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -81,11 +102,16 @@
         </div>
     </div>
 </body>
+
+
 <script>
 $(function(){
     tax.refresh();
     $(document).on("change", `input[type="text"].amount, input[type="text"].age`, function(){ tax.refresh($(this));});
+    $(document).on("mouseover", `.balloon-wrap`, function(){$(this).find(".balloon").show()});
+    $(document).on("mouseleave", `.balloon-wrap`, function(){$(this).find(".balloon").hide()});
 });
+
 
 var tax = tax || {
     refresh:($el)=>{
@@ -178,11 +204,12 @@ var tax = tax || {
                 number_of_after_75 += 1;
             }
         });
+        number_of_persons = number_of_persons==0 ? 1 : number_of_persons;
 
         console.log(number_of_persons);
 
         // 国民健康保険・均等割
-        tax_amount = 4.5*4;
+        tax_amount = 4.5*number_of_persons;
         total_insurance += Number(tax_amount);
         $(`#yearly-9-2`).text(tax_amount);
         // 国民健康保険・所得割
