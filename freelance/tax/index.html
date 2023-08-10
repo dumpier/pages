@@ -1,62 +1,117 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>年金・保険・税金の計算</title>
-	<link href="./res/default.css" rel="stylesheet">
-	<script src="../../res/js/my.js"></script>
-	<script src="./res/tax.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>年金・保険・税金の計算</title>
+    <link href="./res/default.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
-	<h1>個人事業主の税金計算</h1>
-	<div id="page">
-		<div id="app" class="flex"></div>
-		<div id="render-1" class="flex"></div>
-		<div id="render-2" class="flex"></div>
-	</div>
+    <h1>個人事業主の税金計算（jquery版）</h1>
+    <div id="page">
+        <div id="app" class="flex" data-v-app=""><!----></div>
+        <div id="render-1" class="flex">
+            <div class="column">
+                <table class="table border">
+                    <thead>
+                        <tr><th colspan="2" class="diagonal">入力用</th><th>月間(万円)</th><th>年間(万円)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th colspan="2">収入</th><td class="amount" id="monthly-1-0"></td><td class="amount" id="yearly-1-0"></td></tr>
+                        <tr><th rowspan="2"></th><td>売上</td><td class="amount income" id="monthly-1-1"></td><td class="amount" id="yearly-1-1"><input type="text" class="amount income" id="input-yearly-1-1" value=""></td></tr>
+                        <tr><td>売上（補正用）</td><td class="amount income" id="monthly-1-2"></td><td class="amount" id="yearly-1-2"><input type="text" class="amount income" id="input-yearly-1-2" value=""></td></tr>
+                        <tr><th colspan="2">経費</th><td class="amount cost" id="monthly-2-0"></td><td class="amount cost" id="yearly-2-0"></td></tr>
+                        <tr><th rowspan="2"></th><td>経費</td><td class="amount cost" id="monthly-2-1"></td><td class="amount" id="yearly-2-1"><input type="text" class="amount cost" id="input-yearly-2-1" value=""></td></tr>
+                        <tr><td>経費（補正用）</td><td class="amount cost" id="monthly-2-2"></td><td class="amount" id="yearly-2-2"><input type="text" class="amount cost" id="input-yearly-2-2" value=""></td></tr>
+                        <tr><th colspan="2">控除</th><td></td><td></td></tr>
+                        <tr><th rowspan="10"></th><td>基礎控除</td><td class="amount cost" id="monthly-3-1"></td><td class="amount" id="yearly-3-1"><input type="text" class="amount cost" id="input-yearly-3-1" value="48"></td></tr>
+                        <tr><td>青色申告控除</td><td class="amount cost" id="monthly-3-2"></td><td class="amount" id="yearly-3-2"><input type="text" class="amount cost" id="input-yearly-3-2" value="65"></td></tr>
+                        <tr><td>社会保険料控除</td><td class="amount cost" id="monthly-3-3"></td><td class="amount" id="yearly-3-3"><input type="text" class="amount cost" id="input-yearly-3-3" value=""></td></tr>
+                        <tr><td>小規模企業共済等掛金控除</td><td class="amount cost" id="monthly-3-4"></td><td class="amount" id="yearly-3-4"><input type="text" class="amount cost" id="input-yearly-3-4" value=""></td></tr>
+                        <tr><td>生命保険料控除</td><td class="amount cost" id="monthly-3-5"></td><td class="amount" id="yearly-3-5"><input type="text" class="amount cost" id="input-yearly-3-5" value=""></td></tr>
+                        <tr><td>地震保険料控除</td><td class="amount cost" id="monthly-3-6"></td><td class="amount" id="yearly-3-6"><input type="text" class="amount cost" id="input-yearly-3-6" value=""></td></tr>
+                        <tr><td>配偶者控除・配偶者特別控除</td><td class="amount cost" id="monthly-3-7"></td><td class="amount" id="yearly-3-7"><input type="text" class="amount cost" id="input-yearly-3-7" value=""></td></tr>
+                        <tr><td>扶養控除</td><td class="amount cost" id="monthly-3-8"></td><td class="amount" id="yearly-3-8"><input type="text" class="amount cost" id="input-yearly-3-8" value=""></td></tr>
+                        <tr><td>医療費控除</td><td class="amount cost" id="monthly-3-9"></td><td class="amount" id="yearly-3-9"><input type="text" class="amount cost" id="input-yearly-3-9" value=""></td></tr>
+                        <tr><td>控除（補正用）</td><td class="amount cost" id="monthly-3-10"></td><td class="amount" id="yearly-3-10"><input type="text" class="amount cost" id="input-yearly-3-10" value=""></td></tr>
+                        <tr><th colspan="2">課税所得額</th><td></td class="amount" id="monthly-4-0"><td class="amount" class="amount" id="yearly-4-0"></td></tr>
+                        <tr><th rowspan="2"></th><td>※国民健康保険年間所得額</td><td class="amount" id="monthly-4-1"></td><td class="amount" id="yearly-4-1"></td></tr>
+                        <tr><td>※課税所得額による所得税率</td><td class="amount" id="monthly-4-2"></td><td class="amount" id="yearly-4-2"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="column">
+                <table class="table border">
+                    <thead>
+                        <tr><th colspan="2" class="diagonal">結果表示用</th><th>月間(万円)</th><th>年間(万円)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th colspan="2">税金</th><td></td><td></td></tr>
+                        <tr><th rowspan="6"></th><td>住民税・均等割</td><td class="amount" id="monthly-7-1"></td><td id="yearly-7-1"></td></tr>
+                        <tr><td>住民税・所得割</td><td class="amount" id="monthly-7-2"></td><td id="yearly-7-2"></td></tr>
+                        <tr><td>個人事業税</td><td class="amount" id="monthly-7-3"></td><td id="yearly-7-3"></td></tr>
+                        <tr><td>所得税</td><td class="amount" id="monthly-7-4"></td><td id="yearly-7-4"></td></tr>
+                        <tr><td>消費税</td><td class="amount" id="monthly-7-5"></td><td id="yearly-7-5"></td></tr>
+                        <tr><td>税金（補正用）</td><td class="amount" id="monthly-7-6"></td><td id="yearly-7-6"></td></tr>
+                        <tr><th colspan="2">年金</th><td></td><td></td></tr>
+                        <tr><th rowspan="2"></th><td>国民年金</td><td class="amount" id="monthly-8-1"></td><td id="yearly-8-1"></td></tr>
+                        <tr><td>年金（補正用）</td><td class="amount" id="monthly-8-2"></td><td id="yearly-8-2"></td></tr>
+                        <tr><th colspan="2">保険</th><td></td><td></td></tr>
+                        <tr><th rowspan="6"></th><td>国民健康保険・平等割</td><td class="amount" id="monthly-9-1"></td><td id="yearly-9-1"></td></tr>
+                        <tr><td>国民健康保険・均等割</td><td class="amount" id="monthly-9-2"></td><td id="yearly-9-2"></td></tr>
+                        <tr><td>国民健康保険・所得割</td><td class="amount" id="monthly-9-3"></td><td id="yearly-9-3"></td></tr>
+                        <tr><td>国民健康保険・後期高齢者(支援)</td><td class="amount" id="monthly-9-4"></td><td id="yearly-9-4"></td></tr>
+                        <tr><td>国民健康保険・後期高齢者(介護)</td><td class="amount" id="monthly-9-5"></td><td id="yearly-9-5"></td></tr>
+                        <tr><td>保険（補正用）</td><td class="amount" id="monthly-9-6"></td><td id="yearly-9-6"></td></tr>
+                        <tr><th colspan="2">概要</th><td></td><td></td></tr>
+                        <tr><th rowspan="2"></th><td>合計支払額（年金・保険・税金）</td><td class="amount" id="monthly-10-1"></td><td id="yearly-10-1"></td></tr>
+                        <tr><td>手取り額</td><td class="amount" id="monthly-10-2"></td><td id="yearly-10-2"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+$(function(){
+    $(document).on("change", `input[type="text"].amount`, function(){ tax.refresh($(this));});
 
-<template id="tax-table">
-	<div class="column">
-		<table class="table border">
-			<thead>
-				<tr><th colspan=2 class="diagonal">{usage}</th><th>月間(万円)</th><th>年間(万円)</th></tr>
-			</thead>
-			<tbody></tbody>
-		</table>
-	</div>
-</template>
+});
 
-<template id="tax-line-0">
-	<tr><th colspan=2>合計収入</th><td></td><td></td></tr>
-</template>
-<template id="tax-line-1">
-	<tr><th rowspan=2></th><td>売上</td><td></td><td></td></tr>
-</template>
-<template id="tax-line-2">
-	<tr><td>売上（補正）</td><td></td><td></td></tr>
-</template>
+var tax = tax || {
+    refresh:($el)=>{
+        console.log($(`input[type="text"].amount`).get());
+        let total_income = 0 ;
+        let total_amount = 0;
+        $(`input[type="text"].amount`).get().forEach(function(text){
+            $text = $(text);
+            let css_id = $text.prop("id").replace(/input-yearly-/, "");
+            let amount_yearly = ($text.hasClass("cost") ? -1:1) * Number($text.val());
+            let amount_monthly = (amount_yearly/12).toFixed(1);
+            $(`#monthly-${css_id}`).text(amount_yearly ? amount_monthly : "");
+
+            total_amount += amount_yearly;
+            total_income += $text.hasClass("income") ? amount_yearly : 0;
+
+        });
+
+        // 合計売上
+        $(`#yearly-1-0`).text(total_income);
+
+        // 課税所得額
+        $(`#yearly-4-0`).text(total_amount);
+        // 国民健康保険年間所得額
+        let insurance = total_amount-43;
+        $(`#yearly-4-1`).text(insurance);
+        // 課税所得額による所得税率
+        let income_tax_rate = insurance<=195 ? 5 : (insurance <= 330 ? 10 : (insurance <= 695 ? 20 : 24));
+        $(`#yearly-4-2`).text(`${income_tax_rate}%`);
 
 
-
-<script type="importmap">
-{
-	"imports": {
-		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
-	}
+    },
 }
-</script>
-
-<script type="module">
-import { createApp, ref } from 'vue'
-createApp({
-	setup() {
-	return {
-		count: ref(0)
-	}
-	}
-}).mount('#app')
 </script>
 </html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>年金・保険・税金の計算</title>
+	<link href="./res/default.css" rel="stylesheet">
+</head>
+<body>
+	<h1>個人事業主の税金計算(vuewjs版)</h1>
+	<div id="page">
+		<div id="app" class="flex"></div>
+		<div id="render-1" class="flex"></div>
+		<div id="render-2" class="flex"></div>
+	</div>
+</body>
+
+<template id="tax-table">
+	<div class="column">
+		<table class="table border">
+			<thead>
+				<tr><th colspan=2 class="diagonal">{usage}</th><th>月間(万円)</th><th>年間(万円)</th></tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+</template>
+
+<template id="tax-line-0">
+	<tr><th colspan=2>合計収入</th><td></td><td></td></tr>
+</template>
+<template id="tax-line-1">
+	<tr><th rowspan=2></th><td>売上</td><td></td><td></td></tr>
+</template>
+<template id="tax-line-2">
+	<tr><td>売上（補正）</td><td></td><td></td></tr>
+</template>
+
+
+
+<script type="importmap">
+{
+	"imports": {
+		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+	}
+}
+</script>
+
+<script type="module">
+import { createApp, ref } from 'vue'
+createApp({
+	setup() {
+	return {
+		count: ref(0)
+	}
+	}
+}).mount('#app')
+</script>
+</html>

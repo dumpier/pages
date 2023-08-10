@@ -16,4 +16,6 @@ table.table > tbody > tr > td.number { text-align:right; }
 
 
 input { border-radius:5px; padding:3px 5px; border:solid 1px #AAA; }
-input[type=text].amount { width: 50px; text-align:right; }
+input[type=text].amount { width: 50px; }
+.amount.cost { color:red; }
+.amount { text-align:right; }
