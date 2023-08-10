@@ -25,7 +25,7 @@
                         <tr><th colspan="2">経費</th><td class="amount cost" id="monthly-2-0"></td><td class="amount cost bold" id="yearly-2-0"></td></tr>
                         <tr><th rowspan="2"></th><td>経費</td><td class="amount cost" id="monthly-2-1"></td><td class="amount" id="yearly-2-1"><input type="text" class="amount cost" id="input-yearly-2-1" value="200"></td></tr>
                         <tr><td>経費（補正用）</td><td class="amount cost" id="monthly-2-2"></td><td class="amount" id="yearly-2-2"><input type="text" class="amount cost" id="input-yearly-2-2" value=""></td></tr>
-                        <tr><th colspan="2">控除</th><td class="amount cost" id="monthly-3-0"></td><td class="amount cost" id="yearly-3-0"></td></tr>
+                        <tr><th colspan="2">控除</th><td class="amount cost" id="monthly-3-0"></td><td class="amount cost bold" id="yearly-3-0"></td></tr>
                         <tr><th rowspan="10"></th><td>基礎控除</td><td class="amount cost" id="monthly-3-1"></td><td class="amount" id="yearly-3-1"><input type="text" class="amount cost" id="input-yearly-3-1" value="48"></td></tr>
                         <tr><td>青色申告控除</td><td class="amount cost" id="monthly-3-2"></td><td class="amount" id="yearly-3-2"><input type="text" class="amount cost" id="input-yearly-3-2" value="65"></td></tr>
                         <tr><td>社会保険料控除</td><td class="amount cost" id="monthly-3-3"></td><td class="amount" id="yearly-3-3"><input type="text" class="amount cost" id="input-yearly-3-3" value=""></td></tr>
@@ -36,9 +36,9 @@
                         <tr><td>扶養控除</td><td class="amount cost" id="monthly-3-8"></td><td class="amount" id="yearly-3-8"><input type="text" class="amount cost" id="input-yearly-3-8" value=""></td></tr>
                         <tr><td>医療費控除</td><td class="amount cost" id="monthly-3-9"></td><td class="amount" id="yearly-3-9"><input type="text" class="amount cost" id="input-yearly-3-9" value=""></td></tr>
                         <tr><td>控除（補正用）</td><td class="amount cost" id="monthly-3-10"></td><td class="amount" id="yearly-3-10"><input type="text" class="amount cost" id="input-yearly-3-10" value=""></td></tr>
-                        <tr><th colspan="2">課税所得額</th><td></td class="amount" id="monthly-4-0"><td class="amount" class="amount" id="yearly-4-0"></td></tr>
-                        <tr><th rowspan="2"></th><td>※国民健康保険年間所得額</td><td class="amount" id="monthly-4-1"></td><td class="amount" id="yearly-4-1"></td></tr>
-                        <tr><td>※課税所得額による所得税率</td><td class="amount" id="monthly-4-2"></td><td class="amount" id="yearly-4-2"></td></tr>
+                        <tr><th colspan="2">課税所得額</th><td></td class="amount" id="monthly-4-0"><td class="amount bold" id="yearly-4-0"></td></tr>
+                        <tr><th rowspan="2"></th><td>※国民健康保険年間所得額</td><td class="amount" id="monthly-4-1"></td><td class="amount bold" id="yearly-4-1"></td></tr>
+                        <tr><td>※課税所得額による所得税率</td><td class="amount" id="monthly-4-2"></td><td class="amount bold" id="yearly-4-2"></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -49,26 +49,26 @@
                         <tr><th colspan="2" class="diagonal">結果表示用</th><th>月間(万円)</th><th>年間(万円)</th></tr>
                     </thead>
                     <tbody>
-                        <tr><th colspan="2">税金</th><td></td><td></td></tr>
-                        <tr><th rowspan="6"></th><td>住民税・均等割</td><td class="amount" id="monthly-7-1"></td><td id="yearly-7-1"></td></tr>
-                        <tr><td>住民税・所得割</td><td class="amount" id="monthly-7-2"></td><td id="yearly-7-2"></td></tr>
-                        <tr><td>個人事業税</td><td class="amount" id="monthly-7-3"></td><td id="yearly-7-3"></td></tr>
-                        <tr><td>所得税</td><td class="amount" id="monthly-7-4"></td><td id="yearly-7-4"></td></tr>
-                        <tr><td>消費税</td><td class="amount" id="monthly-7-5"></td><td id="yearly-7-5"></td></tr>
-                        <tr><td>税金（補正用）</td><td class="amount" id="monthly-7-6"></td><td id="yearly-7-6"></td></tr>
-                        <tr><th colspan="2">年金</th><td></td><td></td></tr>
-                        <tr><th rowspan="2"></th><td>国民年金</td><td class="amount" id="monthly-8-1"></td><td id="yearly-8-1"></td></tr>
-                        <tr><td>年金（補正用）</td><td class="amount" id="monthly-8-2"></td><td id="yearly-8-2"></td></tr>
-                        <tr><th colspan="2">保険</th><td></td><td></td></tr>
+                        <tr><th colspan="2">税金</th><td class="amount"></td><td class="amount bold" id="yearly-7-0"></td></tr>
+                        <tr><th rowspan="6"></th><td>住民税・均等割</td><td class="amount" id="monthly-7-1"></td><td class="amount" id="yearly-7-1">0.5</td></tr>
+                        <tr><td>住民税・所得割</td><td class="amount" id="monthly-7-2"></td><td class="amount" id="yearly-7-2"></td></tr>
+                        <tr><td>個人事業税</td><td class="amount" id="monthly-7-3"></td><td class="amount" id="yearly-7-3"></td></tr>
+                        <tr><td>所得税</td><td class="amount" id="monthly-7-4"></td><td class="amount" id="yearly-7-4"></td></tr>
+                        <tr><td>消費税</td><td class="amount" id="monthly-7-5"></td><td class="amount" id="yearly-7-5"></td></tr>
+                        <tr><td>税金（補正用）</td><td class="amount" id="monthly-7-6"></td><td class="amount" id="yearly-7-6"></td></tr>
+                        <tr><th colspan="2">年金</th><td class="amount"></td><td class="amount bold" id="yearly-8-0"></td></tr>
+                        <tr><th rowspan="2"></th><td>国民年金</td><td class="amount" id="monthly-8-1"></td><td class="amount" id="yearly-8-1"></td></tr>
+                        <tr><td>年金（補正用）</td><td class="amount" id="monthly-8-2"></td><td class="amount" id="yearly-8-2"></td></tr>
+                        <tr><th colspan="2">保険</th><td class="amount" id="monthly-9-0"></td><td class="amount bold" id="yearly-9-0"></td></tr>
                         <tr><th rowspan="6"></th><td>国民健康保険・平等割</td><td class="amount" id="monthly-9-1"></td><td id="yearly-9-1"></td></tr>
-                        <tr><td>国民健康保険・均等割</td><td class="amount" id="monthly-9-2"></td><td id="yearly-9-2"></td></tr>
-                        <tr><td>国民健康保険・所得割</td><td class="amount" id="monthly-9-3"></td><td id="yearly-9-3"></td></tr>
-                        <tr><td>国民健康保険・後期高齢者(支援)</td><td class="amount" id="monthly-9-4"></td><td id="yearly-9-4"></td></tr>
-                        <tr><td>国民健康保険・後期高齢者(介護)</td><td class="amount" id="monthly-9-5"></td><td id="yearly-9-5"></td></tr>
-                        <tr><td>保険（補正用）</td><td class="amount" id="monthly-9-6"></td><td id="yearly-9-6"></td></tr>
+                        <tr><td>国民健康保険・均等割</td><td class="amount" id="monthly-9-2"></td><td class="amount" id="yearly-9-2"></td></tr>
+                        <tr><td>国民健康保険・所得割</td><td class="amount" id="monthly-9-3"></td><td class="amount" id="yearly-9-3"></td></tr>
+                        <tr><td>国民健康保険・後期高齢者(支援)</td><td class="amount" id="monthly-9-4"></td><td class="amount" id="yearly-9-4"></td></tr>
+                        <tr><td>国民健康保険・後期高齢者(介護)</td><td class="amount" id="monthly-9-5"></td><td class="amount" id="yearly-9-5"></td></tr>
+                        <tr><td>保険（補正用）</td><td class="amount" id="monthly-9-6"></td><td class="amount" id="yearly-9-6"></td></tr>
                         <tr><th colspan="2">概要</th><td></td><td></td></tr>
-                        <tr><th rowspan="2"></th><td>合計支払額（年金・保険・税金）</td><td class="amount" id="monthly-10-1"></td><td id="yearly-10-1"></td></tr>
-                        <tr><td>手取り額</td><td class="amount" id="monthly-10-2"></td><td id="yearly-10-2"></td></tr>
+                        <tr><th rowspan="2"></th><td>合計支払額（年金・保険・税金）</td><td class="amount" id="monthly-10-1"></td><td class="amount bold" id="yearly-10-1"></td></tr>
+                        <tr><td>手取り額（経費含む）</td><td class="amount" id="monthly-10-2"></td><td class="amount bold" id="yearly-10-2"></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -122,6 +122,60 @@ var tax = tax || {
         // 課税所得額による所得税率
         let income_tax_rate = total_amount<=195 ? 5 : (total_amount <= 330 ? 10 : (total_amount <= 695 ? 20 : 24));
         $(`#yearly-4-2`).text(`${income_tax_rate}%`);
+
+        let total_tax = 0;
+        let tax_amount = 0;
+        // 住民税・所得割
+        tax_amount = total_amount/10;
+        total_tax += Number(tax_amount);
+        $(`#yearly-7-2`).text(tax_amount);
+        // 個人事業税
+        let freelance_tax = (total_amount>=290 ? (total_amount-290)*0.05 : 0).toFixed(1);
+        total_tax += Number(freelance_tax);
+        $(`#yearly-7-3`).text(freelance_tax);
+        // 所得税
+        tax_amount = (total_amount*income_tax_rate/100);
+        total_tax += Number(tax_amount);
+        $(`#yearly-7-4`).text(tax_amount);
+        // 合計税金
+        $(`#yearly-7-0`).text(total_tax);
+
+        // 年金
+        let total_pension = 0;
+        // 国民年金
+        tax_amount = (1.654*12).toFixed(1);
+        total_pension += Number(tax_amount);
+        $(`#yearly-8-1`).text(tax_amount);
+        // 合計年金
+        $(`#yearly-8-0`).text(total_pension);
+
+        // 保険
+        let total_insurance = 0;
+        // 国民健康保険・均等割
+        tax_amount = 4.5*4;
+        total_insurance += Number(tax_amount);
+        $(`#yearly-9-2`).text(tax_amount);
+        // 国民健康保険・所得割
+        tax_amount = (insurance*0.0717).toFixed(1);
+        total_insurance += Number(tax_amount);
+        $(`#yearly-9-3`).text(tax_amount);
+        // 国民健康保険・後期高齢者(支援)
+        tax_amount = (insurance*0.0242+1.5*4).toFixed(1);
+        total_insurance += Number(tax_amount);
+        $(`#yearly-9-4`).text(tax_amount);
+        // 国民健康保険・後期高齢者(介護)
+        tax_amount = (insurance*0.0223+1.6*1).toFixed(1);
+        total_insurance += Number(tax_amount);
+        $(`#yearly-9-5`).text(tax_amount);
+        // 合計保険
+        $(`#yearly-9-0`).text(total_insurance.toFixed(1));
+
+        // 概要
+        // 合計
+        let total_payment = (total_tax + total_pension + total_insurance).toFixed(1);
+        $(`#yearly-10-1`).text(total_payment);
+        let total_after_tax = (total_income-total_payment).toFixed(1);
+        $(`#yearly-10-2`).text(total_after_tax);
     },
 }
 </script>
