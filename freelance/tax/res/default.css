@@ -24,5 +24,5 @@ input[type=text].age { width: 50px; }
 
 .bold { font-weight: bold; }
 
-.balloon-wrap { position:relative; display: block; }
-.balloon { position:absolute; right:10px; bottom:25px; padding:10px; border:solid 2px #ddd; background: #f9f9f9; display: none; width: 100%; }
+span:has(span.balloon) { position:relative; display: block; text-decoration: underline; cursor: pointer; }
+.balloon { position:absolute; left:30px; bottom:20px; padding:10px; border:solid 2px #ddd; background: #f9f9f9; display: none; width: 300px; }

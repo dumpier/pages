@@ -1,7 +1,8 @@
 window.onload=()=>{
 	tax.render("#render-1");
-    $("input[type=text].amount").on("change", function(){ tax.amount.change(); });
+    $("input[type=text].amount").on("change", function(e){ tax.amount.change(); });
     $("input[type=text].age").on("change", function(){ tax.amount.change(); });
+    console.log($("input[type=text].age"));
 }
 
 var tax = tax || {
@@ -58,8 +59,6 @@ var tax = tax || {
 tax.amount = {
     // 入力が変更された場合
     change:()=>{
-        console.log($("#render-1 input[type=text].amount"));
-
         $("#render-1 input[type=text].amount").els.forEach(function(input){
             let css_id = input.id.replace(/input-yearly-/, "");
             let amount = input.value;

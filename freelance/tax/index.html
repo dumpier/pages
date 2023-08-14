@@ -33,20 +33,22 @@
                         <tr><td>生命保険料控除</td><td class="amount cost" id="monthly-3-5"></td><td class="amount" id="yearly-3-5"><input type="text" class="amount cost" id="input-yearly-3-5" value=""></td></tr>
                         <tr><td>地震保険料控除</td><td class="amount cost" id="monthly-3-6"></td><td class="amount" id="yearly-3-6"><input type="text" class="amount cost" id="input-yearly-3-6" value=""></td></tr>
                         <tr><td>配偶者控除・配偶者特別控除</td><td class="amount cost" id="monthly-3-7"></td><td class="amount" id="yearly-3-7"><input type="text" class="amount cost" id="input-yearly-3-7" value=""></td></tr>
-                        <tr><td>扶養控除</td><td class="amount cost" id="monthly-3-8"></td><td class="amount" id="yearly-3-8"><input type="text" class="amount cost" id="input-yearly-3-8" value=""></td></tr>
+                        <tr>
+                            <td><span>扶養控除<span class="balloon">具体的には、扶養される親族が16歳以上18歳以下、23歳以上69歳以下の場合は38万円、特定扶養親族である19歳以上23歳未満の場合は63万円です。 70歳以上の親族は同居か別居（※）かで控除額が変わり、納税者または配偶者の直系尊属（父母・祖父母など）で同居していれば控除額は58万円、同居以外は48万円となります。</span></span></td>
+                            <td class="amount cost" id="monthly-3-8"></td><td class="amount" id="yearly-3-8"><input type="text" class="amount cost" id="input-yearly-3-8" value=""></td></tr>
                         <tr><td>医療費控除</td><td class="amount cost" id="monthly-3-9"></td><td class="amount" id="yearly-3-9"><input type="text" class="amount cost" id="input-yearly-3-9" value=""></td></tr>
                         <tr><td>控除（補正用）</td><td class="amount cost" id="monthly-3-10"></td><td class="amount" id="yearly-3-10"><input type="text" class="amount cost" id="input-yearly-3-10" value=""></td></tr>
                         <tr><th colspan="2"><span style="color:blue;">課税所得額</span></th><td></td class="amount" id="monthly-4-0"><td class="amount bold" id="yearly-4-0"></td></tr>
                         <tr><th rowspan="2"></th>
                             <td>
-                                <span class="balloon-wrap">国民健康保険年間所得額
+                                <span>国民健康保険年間所得額
                                     <span class="balloon">※<span style="color:blue;">課税所得額</span>-43万円</span>
                                 </span>
                             </td>
                             <td class="amount" id="monthly-4-1"></td><td class="amount bold" id="yearly-4-1"></td></tr>
                         <tr>
                             <td>
-                                <span class="balloon-wrap">課税所得額による所得税率
+                                <span>課税所得額による所得税率
                                     <span class="balloon"><span style="color:blue;">※課税所得額</span>より変動します。
                                         <br>　・195万以下、5%
                                         <br>　・330万以下、10%
@@ -108,12 +110,19 @@
 $(function(){
     tax.refresh();
     $(document).on("change", `input[type="text"].amount, input[type="text"].age`, function(){ tax.refresh($(this));});
-    $(document).on("mouseover", `.balloon-wrap`, function(){$(this).find(".balloon").show()});
-    $(document).on("mouseleave", `.balloon-wrap`, function(){$(this).find(".balloon").hide()});
+    $(document).on("mouseover", `span:has('.balloon')`, function(){$(this).find(".balloon").show()});
+    $(document).on("mouseleave", `span:has('.balloon')`, function(){$(this).find(".balloon").hide()});
 });
 
-
 var tax = tax || {
+    eval:(v)=>{
+        if ($.type(v)=="string" && v.match(/^=/)) {
+            console.log(eval(v.slice(1)));
+            return Number(eval(v.slice(1)));
+        }
+
+        return Number(v);
+    },
     refresh:($el)=>{
         let total_income = total_cost = total_allowable = total_amount = 0;
         $(`input[type="text"].amount`).get().forEach(function(text){
@@ -121,7 +130,7 @@ var tax = tax || {
             let css_id = $text.prop("id");
             let css_id_common = $text.prop("id").replace(/input-yearly-/, "");
 
-            let amount = Number($text.val());
+            let amount = tax.eval($text.val());
             let amount_monthly = (amount/12).toFixed(1);
             $(`#monthly-${css_id_common}`).text(amount ? amount_monthly : "");
 
@@ -144,6 +153,7 @@ var tax = tax || {
         // 合計控除
         $(`#yearly-3-0`).text(total_allowable);
 
+
         // 課税所得額
         $(`#yearly-4-0`).text(total_amount);
         // 国民健康保険年間所得額
@@ -157,15 +167,15 @@ var tax = tax || {
         let tax_amount = 0;
         // 住民税・所得割
         tax_amount = total_amount/10;
-        total_tax += Number(tax_amount);
+        total_tax += tax.eval(tax_amount);
         $(`#yearly-7-2`).text(tax_amount);
         // 個人事業税
         let freelance_tax = (total_amount>=290 ? (total_amount-290)*0.05 : 0).toFixed(1);
-        total_tax += Number(freelance_tax);
+        total_tax += tax.eval(freelance_tax);
         $(`#yearly-7-3`).text(freelance_tax);
         // 所得税
         tax_amount = (total_amount*income_tax_rate/100);
-        total_tax += Number(tax_amount);
+        total_tax += tax.eval(tax_amount);
         $(`#yearly-7-4`).text(tax_amount);
         // 合計税金
         $(`#yearly-7-0`).text(total_tax);
@@ -174,7 +184,7 @@ var tax = tax || {
         let total_pension = 0;
         // 国民年金
         tax_amount = (1.654*12).toFixed(1);
-        total_pension += Number(tax_amount);
+        total_pension += tax.eval(tax_amount);
         $(`#yearly-8-1`).text(tax_amount);
         // 合計年金
         $(`#yearly-8-0`).text(total_pension);
@@ -189,16 +199,18 @@ var tax = tax || {
         let number_of_after_75 = 0;
         $(`input[type=text].age`).get().forEach(function(text){
             let $text = $(text);
-            if ($text.val()==="") {
+            let age = $text.val();
+            if (age==="") {
                 return ;
             }
 
+            age = Number(age);
             number_of_persons += 1;
-            if ($text.val()<40) {
+            if (age<40) {
                 number_of_under_40 += 1;
-            } else if ($text.val()<65) {
+            } else if (age<65) {
                 number_of_40_65 += 1;
-            } else if ($text.val()<75) {
+            } else if (age<75) {
                 number_of_66_75 += 1;
             } else {
                 number_of_after_75 += 1;
@@ -234,6 +246,6 @@ var tax = tax || {
         let total_after_tax = (total_income-total_payment).toFixed(1);
         $(`#yearly-10-2`).text(total_after_tax);
     },
-}
+};
 </script>
 </html>
