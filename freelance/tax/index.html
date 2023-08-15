@@ -166,8 +166,7 @@ var tax = tax || {
         let income_tax_rate = total_amount<=195 ? 5 : (total_amount <= 330 ? 10 : (total_amount <= 695 ? 20 : 24));
         $(`#yearly-4-2`).text(`${income_tax_rate}%`);
 
-        let total_tax = 0;
-        let tax_amount = 0;
+        let total_tax = tax_amount = 0;
         // 住民税・所得割
         tax_amount = total_amount/10;
         total_tax += tax.eval(tax_amount);
@@ -195,17 +194,11 @@ var tax = tax || {
         // 保険
         let total_insurance = 0;
         // 加入者情報
-        let number_of_persons = 0;
-        let number_of_under_40 = 0;
-        let number_of_40_65 = 0;
-        let number_of_66_75 = 0;
-        let number_of_after_75 = 0;
+        let number_of_persons = number_of_under_40 = number_of_40_65 = number_of_66_75 = number_of_after_75 = 0;
         $(`input[type=text].age`).get().forEach(function(text){
             let $text = $(text);
             let age = $text.val();
-            if (age==="") {
-                return ;
-            }
+            if (age==="") { return ; }
 
             age = Number(age);
             number_of_persons += 1;
@@ -220,8 +213,6 @@ var tax = tax || {
             }
         });
         number_of_persons = number_of_persons==0 ? 1 : number_of_persons;
-
-        console.log(number_of_persons);
 
         // 国民健康保険・均等割
         tax_amount = 4.5*number_of_persons;
