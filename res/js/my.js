@@ -1,6 +1,6 @@
 const myjs = {
     elements:[],
-    create:function(selector){
+    instance:function(selector){
         if(selector===undefined){ return myjs; }
         const obj = Object.create(myjs);
         this.elements = myjs.type(selector)=="String" ? document.querySelectorAll(selector):selector;
@@ -52,20 +52,20 @@ myjs.attribute = {
         this.attribute.set(name, val);
         return this;
     },
-    has:function(name){ return this.current().hasAttribute(name); },
-    get:function(name){ return this.current().getAttribute(name); },
-    set:function(name, val){ this.current().setAttribute(name, val); return this; },
-    remove:function(name){ this.current().removeAttribute(name, val); return this; },
+    has:function(name){ return this.get().hasAttribute(name); },
+    get:function(name){ return this.get().getAttribute(name); },
+    set:function(name, val){ this.get().setAttribute(name, val); return this; },
+    remove:function(name){ this.get().removeAttribute(name, val); return this; },
 };
-
 
 myjs.css = {};
 myjs.css.id = {};
+myjs.css.style = {};
 myjs.css.class = {
-    get:function(){ return this.current().classList.value; },
-    has:function(name){ this.current().classList.contains(name); },
-    add:function(...name){ this.current().classList.add(...name); return this; },
-    remove:function(name){ this.current().classList.remove(name); return this; },
-    toggle:function(name){ this.current().classList.toggle(name); return this; },
-    replace:function(name, new_name){ this.current().classList.replace(name, new_name); return this; },
+    get:function(){ return this.get().classList.value; },
+    has:function(name){ this.get().classList.contains(name); },
+    add:function(...name){ this.get().classList.add(...name); return this; },
+    remove:function(name){ this.get().classList.remove(name); return this; },
+    toggle:function(name){ this.get().classList.toggle(name); return this; },
+    replace:function(name, new_name){ this.get().classList.replace(name, new_name); return this; },
 };

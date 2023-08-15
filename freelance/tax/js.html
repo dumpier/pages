@@ -38,7 +38,7 @@
 </template>
 
 <script>
-const $ = (selector)=>{ return myjs.create(selector); };
+const $ = (selector)=>{ return myjs.instance(selector); };
 window.onload=()=>{
 	tax.render("#app");
 	$("input[type=text].amount").on("change", function(){ tax.amount.change(); });
@@ -77,13 +77,9 @@ var tax = tax || {
 			item.forEach(function(name, ii) {
 				let css_id = `${i}-${ii}`;
 				let input_yearly = operator.editable ? `<input type="text" class="amount" id="input-yearly-${css_id}" value="">` : "";
-				if (ii==0) {
-					html.raw += `<tr><th colspan=2>${name}</th><td></td><td></td></tr>`;
-				} else if (ii==1) {
-					html.raw += `<tr><th rowspan=${item.length-1}></th><td>${name}</td><td class="amount" id="monthly-${css_id}"></td><td id="yearly-${css_id}">${input_yearly}</td></tr>`;
-				} else {
-					html.raw += `<tr><td>${name}</td><td class="amount" id="monthly-${css_id}"></td><td id="yearly-${css_id}">${input_yearly}</td></tr>`;
-				}
+				if (ii==0) html.raw += `<tr><th colspan=2>${name}</th><td></td><td></td></tr>`;
+				if (ii==1) html.raw += `<tr><th rowspan=${item.length-1}></th><td>${name}</td><td class="amount" id="monthly-${css_id}"></td><td id="yearly-${css_id}">${input_yearly}</td></tr>`;
+				if (ii>=2) html.raw += `<tr><td>${name}</td><td class="amount" id="monthly-${css_id}"></td><td id="yearly-${css_id}">${input_yearly}</td></tr>`;
 			});
 		});
 	},
