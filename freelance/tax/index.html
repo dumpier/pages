@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>年金・保険・税金の計算</title>
     <link href="./res/default.css" rel="stylesheet">
+    <script src="../../res/js/my.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
+    <div class="mask"><div class="loader"></div></div>
     <h1>個人事業主の税金計算（jquery版）</h1>
     <div id="page">
         <div id="app" class="flex" data-v-app=""><!----></div>
@@ -112,6 +114,7 @@ $(function(){
     $(document).on("change", `input[type="text"].amount, input[type="text"].age`, function(){ tax.refresh($(this));});
     $(document).on("mouseover", `span:has('.balloon')`, function(){$(this).find(".balloon").show()});
     $(document).on("mouseleave", `span:has('.balloon')`, function(){$(this).find(".balloon").hide()});
+    $(".mask").hide();
 });
 
 var tax = tax || {
