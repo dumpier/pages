@@ -6,6 +6,8 @@ const myjs = {
         this.elements = myjs.type(selector)=="String" ? document.querySelectorAll(selector):selector;
         return obj;
     },
+    on:function(type, handle) { this.all().forEach(el=>{el.addEventListener(type, handle, false);}); return this; },
+    off:function(type, handle){ this.all().forEach(el=>{el.removeEventListener(type, handle, false);}); return this; },
     get:function(i){ return i===undefined ? this.elements : this.elements[i]; },
     all:function(){ return this.isNodeList() ? this.elements:[this.elements]; },
     type:function(obj){ obj = obj || this.elements; return Object.prototype.toString.call(obj).slice(8,-1) || typeof(obj); },
@@ -13,20 +15,24 @@ const myjs = {
     isHtmlElement:function( obj ){ return this.type(obj).match(/^HTML.+Element$/) ? true:false; },
     param:(name)=>{ return (new URL(window.location.href)).searchParams.get(name); },
 
-    show:function(){ this.all().forEach(function(el){el.style.display = "block";}); },
-    hide:function(){ this.all().forEach(function(el){el.style.display = "none";}); },
+    show:function(){ this.all().forEach(el=>{el.style.display = "block";}); },
+    hide:function(){ this.all().forEach(el=>{el.style.display = "none";}); },
 
     html:function(val){ return this._access("innerHTML", val); },
     text:function(val){ return this._access("textContent", val); },
     val:function(val){},
     css:function(val){},
     _access:function(prop, val){
-        if(val===undefined) return this.elements[0][prop];
-        this.all().forEach(function(el){el[prop] = val});
+        if(val===undefined) {
+            let result = "";
+            this.all().forEach(el=>{ result += el[prop];});
+            return result;
+        }
+        this.all().forEach(el=>{el[prop] = val});
         return this;
     },
-    prepend:function(html){ this.all().forEach(function(el){el.innerHTML=html+el.innerHTML;}); return this; },
-    append:function(html){ this.all().forEach(function(el){el.innerHTML+=html;}); return this; },
+    prepend:function(html){ this.all().forEach(el=>{el.innerHTML=html+el.innerHTML;}); return this; },
+    append:function(html){ this.all().forEach(el=>{el.innerHTML+=html;}); return this; },
     remove:function(selector){},
 
     find:function(sector){  },
@@ -38,9 +44,6 @@ const myjs = {
 
     prop:function(name, val){},
     attr:function(name, val){},
-
-    on:function(type, handle) { this.all().forEach(function(el){el.addEventListener(type, handle, false);}); return this; },
-    off:function(type, handle){ this.all().forEach(function(el){el.removeEventListener(type, handle, false);}); return this; },
 };
 
 myjs.attribute = {
