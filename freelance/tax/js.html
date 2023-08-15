@@ -34,7 +34,7 @@ const $ = (selector)=>{ return myjs.instance(selector); };
 
 window.onload=()=>{
 	tax.render("#app");
-	$("input[type=text].amount, input[type=text].age").on("change", function(){ tax.amount.change(); });
+	$("input[type=text].amount, input[type=text].age").on("change", function(){ tax.input.change(); });
 	$(".mask").hide();
 }
 
@@ -43,11 +43,8 @@ var tax = tax || {
 		const html = {"raw":""};
 		let operator = {};
 		(items || config.items).forEach(function(item, i){
-			if (myjs.type(item)==="Object") {
-				return operator = item;
-			} else if (item.length == 0) {
-				return tax.embed(selector, html, operator);
-			}
+			if (myjs.type(item)==="Object") return operator = item;
+			if (item.length == 0) return tax.embed(selector, html, operator);
 
 			item.forEach(function(name, ii) {
 				let css_id = `${i}-${ii}`;
@@ -70,7 +67,7 @@ var tax = tax || {
 	},
 };
 
-tax.amount = {
+tax.input = {
 	// 入力が変更された場合
 	change:()=>{
 		$("#app input[type=text].amount").get().forEach(function(input){
