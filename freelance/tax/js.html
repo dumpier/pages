@@ -38,10 +38,7 @@
 </template>
 
 <script>
-const $ = function(selector){
-	return selector ? myjs.create(selector) : myjs;
-};
-
+const $ = (selector)=>{ return myjs.create(selector); };
 window.onload=()=>{
 	tax.render("#app");
 	$("input[type=text].amount").on("change", function(){ tax.amount.change(); });
@@ -70,8 +67,10 @@ var tax = tax || {
 		let operator = {};
 		(items || tax.items).forEach(function(item, i){
 			if (myjs.type(item)==="Object") {
+				console.log("is title");
 				return operator = item;
 			} else if (item.length == 0) {
+				console.log("output");
 				return tax.embed(selector, html, operator);
 			}
 
@@ -92,9 +91,9 @@ var tax = tax || {
 	// 生成されたHTMLをテンプレートに埋め込む
 	embed:(selector, html, operator)=>{
 		// テンプレートからhtmlを取得し、代入する
-		let template = $("#tax-table").first().html();
+		let template = $("#tax-table").html();
 		template = template.replace(/(<tbody>)(<\/tbody>)/g, "$1"+html.raw+"$2").replace(/{usage}/, operator.title);
-		$(selector).first().append(template);
+		$(selector).append(template);
 		// クリアする
 		html.raw = "";
 	},
@@ -103,10 +102,10 @@ var tax = tax || {
 tax.amount = {
 	// 入力が変更された場合
 	change:()=>{
-		$("#render-1 input[type=text].amount").get().forEach(function(input){
+		$("#app input[type=text].amount").get().forEach(function(input){
 			let css_id = input.id.replace(/input-yearly-/, "");
 			let amount = input.value;
-			$(`#monthly-${css_id}`).current().textContent = amount ? (amount/12).toFixed(1) : "";
+			$(`#monthly-${css_id}`).text(amount ? (amount/12).toFixed(1) : "");
 		});
 	},
 }
