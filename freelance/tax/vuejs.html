@@ -9,7 +9,7 @@
 	<script src="./res/config.js"></script>
 </head>
 <body>
-	<div class="mask"><div class="loader"></div></div>
+	<div id="mask" class="mask"><div class="loader"></div></div>
 	<h1>個人事業主の税金計算(vue.js版)</h1>
 	<div id="page">
 		<div id="app" class="flex"></div>
@@ -38,12 +38,16 @@
 
 <script type="module">
 import { createApp, ref } from 'vue'
-createApp({
+const app = createApp({
 	setup() {
-		return {
-			count: ref(0)
-		}
-	}
-}).mount('#app')
+		return {}
+	},
+	mounted() {
+		window.onload = () => {
+			(document.getElementById("mask")).style.display = "none";
+		};
+	},
+});
+app.mount('#app');
 </script>
 </html>

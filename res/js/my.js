@@ -9,6 +9,7 @@ const myjs = {
     on:function(type, handle) { this.all().forEach(el=>{el.addEventListener(type, handle, false);}); return this; },
     off:function(type, handle){ this.all().forEach(el=>{el.removeEventListener(type, handle, false);}); return this; },
     get:function(i){ return i===undefined ? this.elements : this.elements[i]; },
+    first:function(){ return this.isNodeList() ? this.elements[0] : this.elements; },
     all:function(){ return this.isNodeList() ? this.elements:[this.elements]; },
     type:function(obj){ obj = obj || this.elements; return Object.prototype.toString.call(obj).slice(8,-1) || typeof(obj); },
     isNodeList:function( obj ){ return this.type()=="NodeList" ? true:false; },
@@ -20,14 +21,8 @@ const myjs = {
 
     html:function(val){ return this._access("innerHTML", val); },
     text:function(val){ return this._access("textContent", val); },
-    val:function(val){},
-    css:function(val){},
     _access:function(prop, val){
-        if(val===undefined) {
-            let result = "";
-            this.all().forEach(el=>{ result += el[prop];});
-            return result;
-        }
+        if(val===undefined) { return this.first()[prop]; }
         this.all().forEach(el=>{el[prop] = val});
         return this;
     },
@@ -35,15 +30,20 @@ const myjs = {
     append:function(html){ this.all().forEach(el=>{el.innerHTML+=html;}); return this; },
     remove:function(selector){},
 
-    find:function(sector){  },
-    children:function(sector){  },
-    parent:function(sector){  },
-    closest:function(sector){  },
-    next:function(sector){  },
-    before:function(sector){  },
+    find:function(selector){  },
+    children:function(selector){  },
+    parent:function(selector){  },
+    closest:function(selector){  },
+    next:function(selector){  },
+    before:function(selector){  },
 
-    prop:function(name, val){},
-    attr:function(name, val){},
+    prop:function(name, val){ return this._access(name, val); },
+    attr:function(name, val){ return this._access(name, val); },
+    val:function(val){
+        if(val===undefined) { return this.first().value; }
+        this.all().forEach(el=>{el.value = val});
+        return this;
+    },
 };
 
 myjs.attribute = {
