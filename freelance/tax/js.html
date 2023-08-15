@@ -44,7 +44,7 @@ var tax = tax || {
 		let operator = {};
 		(items || config.items).forEach(function(item, i){
 			if (myjs.type(item)==="Object") return operator = item;
-			if (item.length == 0) return tax.embed(selector, html, operator);
+			if (item.length == 0) return tax.assign(selector, html, operator);
 
 			item.forEach(function(name, ii) {
 				let css_id = `${i}-${ii}`;
@@ -57,12 +57,10 @@ var tax = tax || {
 	},
 
 	// 生成されたHTMLをテンプレートに埋め込む
-	embed:(selector, html, operator)=>{
+	assign:(selector, html, operator)=>{
 		// テンプレートからhtmlを取得し、代入する
-		let template = $("#tax-table").html();
-		template = template.replace(/(<tbody>)(<\/tbody>)/g, "$1"+html.raw+"$2").replace(/{usage}/, operator.title);
+		let template = $("#tax-table").html().replace(/(<tbody>)(<\/tbody>)/g, "$1"+html.raw+"$2").replace(/{usage}/, operator.title);
 		$(selector).append(template);
-		// クリアする
 		html.raw = "";
 	},
 };
