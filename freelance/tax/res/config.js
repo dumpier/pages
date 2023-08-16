@@ -88,14 +88,14 @@ var config = config || {
             <tr><td>税金（補正用）</td><td class="amount monthly" id="monthly-7-10"></td><td class="amount yearly" id="yearly-7-10"><input type="text" class="amount" id="input-yearly-7-10" value=""></td></tr>
 
             <tr><th colspan="2">年金</th><td class="amount monthly"></td><td class="amount yearly bold" id="yearly-8-0"></td></tr>
-            <tr><th rowspan="2"></th><td>国民年金</td><td class="amount monthly" id="monthly-8-1"></td><td class="amount yearly" id="yearly-8-1"></td></tr>
+            <tr><th rowspan="2"></th><td>国民年金<span class="inline-right">加入人数<input type="text" class="right number ml-5" id="nenkin-count" value="1"></span></td><td class="amount monthly" id="monthly-8-1"></td><td class="amount yearly" id="yearly-8-1"></td></tr>
             <tr><td>年金（補正用）</td><td class="amount monthly" id="monthly-8-2"></td><td class="amount yearly" id="yearly-8-2"><input type="text" class="amount" id="input-yearly-8-2" value=""></td></tr>
             <tr><th colspan="2">保険</th><td class="amount monthly" id="monthly-9-0"></td><td class="amount yearly bold" id="yearly-9-0"></td></tr>
 
             <tr><th rowspan="4"></th><th rowspan="4">加入者年齢</th><td class="right"><input type="text" class="right age" id="age-1" value=""></td><td class="right"><input type="text" class="right age" id="age-2" value=""></td></tr>
             <tr><td class="right"><input type="text" class="right age" id="age-3" value=""></td><td class="right"><input type="text" class="right age" id="age-4" value=""></td></tr>
-            <tr><td class="right"><input type="text" class="right age" id="age-4" value=""></td><td class="right"><input type="text" class="right age" id="age-6" value=""></td></tr>
-            <tr><td class="right"><input type="text" class="right age" id="age-5" value=""></td><td class="right"><input type="text" class="right age" id="age-8" value=""></td></tr>
+            <tr><td class="right"><input type="text" class="right age" id="age-5" value=""></td><td class="right"><input type="text" class="right age" id="age-6" value=""></td></tr>
+            <tr><td class="right"><input type="text" class="right age" id="age-7" value=""></td><td class="right"><input type="text" class="right age" id="age-8" value=""></td></tr>
 
             <tr><th rowspan="6"></th><td>国民健康保険・平等割</td><td class="amount monthly" id="monthly-9-1"></td><td class="amount yearly" id="yearly-9-1"></td></tr>
             <tr><td>国民健康保険・均等割</td><td class="amount monthly" id="monthly-9-2"></td><td class="amount yearly" id="yearly-9-2"></td></tr>

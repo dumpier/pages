@@ -22,7 +22,7 @@
 <script>
 $(function(){
     tax.render();
-    $(document).on("change", `input[type="text"].amount, input[type="text"].age`, function(){ tax.refresh($(this));});
+    $(document).on("change", `input[type="text"].amount, input[type="text"].age, input[type="text"].number`, function(){ tax.refresh($(this));});
     $(document).on("mouseover", `span:has('.balloon')`, function(){$(this).find(".balloon").show()});
     $(document).on("mouseleave", `span:has('.balloon')`, function(){$(this).find(".balloon").hide()});
     $(".mask").hide();
@@ -100,7 +100,7 @@ var tax = tax || {
         // 年金
         let total_pension = 0;
         // 国民年金
-        tax_amount = (1.654*12).toFixed(1);
+        tax_amount = (1.654*12*$("#nenkin-count").val()).toFixed(1);
         total_pension += tax.eval(tax_amount);
         $(`#yearly-8-1`).text(tax_amount);
         // 合計年金
