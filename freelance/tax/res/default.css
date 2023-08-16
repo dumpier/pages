@@ -28,8 +28,7 @@ span:has(span.balloon) { position:relative; display: block; text-decoration: und
 .balloon { position:absolute; left:30px; bottom:20px; padding:10px; border:solid 2px #ddd; background: #f9f9f9; display: none; width: 300px; }
 
 div.mask { position:fixed; z-index:10001; background:#f9f9f9; width: 100%; height: 100%; }
-.loader,
-.loader:after { border-radius: 50%; width: 10em; height: 10em; }
+.loader, .loader:after { border-radius: 50%; width: 10em; height: 10em; }
 .loader { margin: 60px auto; font-size: 10px; position: relative; text-indent: -9999em; border-top: 1.1em solid rgba(204,204,204, 0.2); border-right: 1.1em solid rgba(204,204,204, 0.2); border-bottom: 1.1em solid rgba(204,204,204, 0.2); border-left: 1.1em solid #cccccc; -webkit-transform: translateZ(0); -ms-transform: translateZ(0); transform: translateZ(0); -webkit-animation: load8 1.1s infinite linear; animation: load8 1.1s infinite linear; }
 @-webkit-keyframes load8 { 0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }}
 @keyframes load8 { 0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }}

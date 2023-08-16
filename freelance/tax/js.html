@@ -28,6 +28,14 @@
 	</div>
 </template>
 
+<template id="tax-input-age">
+	<tr><th rowspan="4"></th><th rowspan="4">加入者年齢</th><td class="right"><input type="text" class="right age" id="age-1" value=""></td><td class="right"><input type="text" class="right age" id="age-2" value=""></td></tr>
+	<tr><td class="right"><input type="text" class="right age" id="age-3" value=""></td><td class="right"><input type="text" class="right age" id="age-4" value=""></td></tr>
+	<tr><td class="right"><input type="text" class="right age" id="age-4" value=""></td><td class="right"><input type="text" class="right age" id="age-6" value=""></td></tr>
+	<tr><td class="right"><input type="text" class="right age" id="age-5" value=""></td><td class="right"><input type="text" class="right age" id="age-8" value=""></td></tr>
+</template>
+
+
 <script>
 // myjsの短縮を定義
 const $ = (selector)=>{ return myjs.instance(selector); };
@@ -46,12 +54,17 @@ var tax = tax || {
 			if (myjs.type(item)==="Object") return operator = item;
 			if (item.length == 0) return tax.assign(selector, html, operator);
 
+			let item_count = item.length - 1;
 			item.forEach(function(name, ii) {
 				let css_id = `${i}-${ii}`;
 				let input_yearly = operator.editable ? `<input type="text" class="amount" id="input-yearly-${css_id}" value="">` : "";
 				if (ii==0) html.raw += `<tr><th colspan=2>${name}</th><td></td><td></td></tr>`;
-				if (ii==1) html.raw += `<tr><th rowspan=${item.length-1}></th><td>${name}</td><td class="amount" id="monthly-${css_id}"></td><td id="yearly-${css_id}">${input_yearly}</td></tr>`;
-				if (ii>=2) html.raw += `<tr><td>${name}</td><td class="amount" id="monthly-${css_id}"></td><td id="yearly-${css_id}">${input_yearly}</td></tr>`;
+				if (ii==1) html.raw += `<tr><th rowspan=${item_count}></th><td>${name}</td><td class="amount" id="monthly-${css_id}"></td><td class="right" id="yearly-${css_id}">${input_yearly}</td></tr>`;
+				if (ii>=2) html.raw += `<tr><td>${name}</td><td class="amount" id="monthly-${css_id}"></td><td class="right" id="yearly-${css_id}">${input_yearly}</td></tr>`;
+
+				if ("保険"===name) {
+					html.raw += $("#tax-input-age").html();
+				}
 			});
 		});
 	},

@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>年金・保険・税金の計算</title>
-	<link href="./res/default.css" rel="stylesheet">
-	<script src="./res/config.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>年金・保険・税金の計算</title>
+    <link href="./res/default.css" rel="stylesheet">
+    <script src="./res/config.js"></script>
 </head>
 <body>
-	<div id="mask" class="mask"><div class="loader"></div></div>
-	<h1>個人事業主の税金計算(vue.js版)</h1>
-	<div id="page">
-		<div id="app" class="flex"></div>
-	</div>
+    <div id="mask" class="mask"><div class="loader"></div></div>
+    <h1>個人事業主の税金計算(vue.js版)</h1>
+    <div id="page">
+        <div id="app" class="flex"></div>
+    </div>
 </body>
 
 <template id="tax-table">
-	<div class="column">
-		<table class="table border">
-			<thead>
-				<tr><th colspan=2 class="diagonal">{usage}</th><th>月間(万円)</th><th>年間(万円)</th></tr>
-			</thead>
-			<tbody></tbody>
-		</table>
-	</div>
+    <div class="column">
+        <table class="table border">
+            <thead>
+                <tr><th colspan=2 class="diagonal">{usage}</th><th>月間(万円)</th><th>年間(万円)</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </template>
 
 
 <script type="importmap">
 {
-	"imports": {
-		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
-	}
+    "imports": {
+        "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+    }
 }
 </script>
 
 <script type="module">
-import { createApp, ref } from 'vue'
+import { createApp, ref } from 'vue';
 const app = createApp({
-	setup() {
-		return {}
-	},
-	mounted() {
-		window.onload = () => {
-			(document.getElementById("mask")).style.display = "none";
-		};
-	},
+    setup() {
+        return {}
+    },
+    mounted() {
+        window.onload=()=>{
+            (document.getElementById("mask")).style.display = "none";
+        };
+    },
 });
 app.mount('#app');
 </script>
