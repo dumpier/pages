@@ -9,10 +9,12 @@
     <script src="./res/config.js"></script>
 </head>
 <body>
-    <div id="mask" class="mask"><div class="loader"></div></div>
-    <h1>個人事業主の税金計算(vue.js版)</h1>
     <div id="page">
-        <div id="app" class="flex"></div>
+        <div id="mask" class="mask" v-show="isShowMask"><div class="loader"></div></div>
+        <h1>個人事業主の税金計算(vue.js版)</h1>
+        <div id="content">
+            <div id="app" class="flex"><span v-html="taxTable"></span></div>
+        </div>
     </div>
 </body>
 
@@ -38,14 +40,42 @@
 
 <script type="module">
 import { createApp, ref } from 'vue';
-const app = createApp({
-    setup() {},
+const page = createApp({
+    setup(){
+        const isShowMask = ref(true);
+        return {
+            isShowMask
+        }
+    },
+    created() {
+        console.log(`created`);
+        this.isShowMask = ref(false);
+    },
     mounted() {
-        window.onload=()=>{
-            (document.getElementById("mask")).style.display = "none";
-        };
+        console.log(`mounted`);
+        this.isShowMask = ref(false);
+        window.onload = ()=>{
+            console.log(`mounted-onloaded`);
+            this.isShowMask = ref(false);
+        }
+    },
+});
+page.mount("#page");
+
+const app = createApp({
+    setup() {
+        return {
+            taxTable:"<ul><li>aaaaaaaa</li></ul>"
+        }
+    },
+    mounted() {
+        this.render();
+    },
+    methods:{
+        render:function(){ this.taxTable=config.template; },
     },
 });
 app.mount('#app');
 </script>
+
 </html>
