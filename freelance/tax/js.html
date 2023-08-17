@@ -39,7 +39,6 @@
 <script>
 // myjsの短縮を定義
 const $ = (selector)=>{ return myjs.instance(selector); };
-
 window.onload=()=>{
 	tax.render("#app");
 	$("input[type=text].amount, input[type=text].age").on("change", function(){ tax.input.change(); });

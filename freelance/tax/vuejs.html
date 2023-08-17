@@ -12,9 +12,7 @@
     <div id="app">
         <div id="mask" class="mask" v-show="isShowMask"><div class="loader"></div></div>
         <h1>個人事業主の税金計算(vue.js版)</h1>
-        <div id="content">
-            <div class="flex" v-html="taxTable"></div>
-        </div>
+        <div id="content" v-html="taxTable"></div>
     </div>
 </body>
 

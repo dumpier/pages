@@ -13,9 +13,7 @@
 <body>
     <div class="mask"><div class="loader"></div></div>
     <h1>個人事業主の税金計算（jquery版）</h1>
-    <div id="content">
-        <div id="app" class="flex"></div>
-    </div>
+    <div id="content"></div>
 </body>
 
 
@@ -36,7 +34,7 @@ var tax = tax || {
         return Number(v);
     },
     render:()=>{
-        $("#app").html(config.template);
+        $("#content").html(config.template);
         tax.refresh();
     },
     refresh:($el)=>{
