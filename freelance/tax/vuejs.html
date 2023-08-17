@@ -13,7 +13,7 @@
         <div id="mask" class="mask" v-show="isShowMask"><div class="loader"></div></div>
         <h1>個人事業主の税金計算(vue.js版)</h1>
         <div id="content">
-            <div id="app" class="flex"><span v-html="taxTable"></span></div>
+            <div id="app" class="flex">{{taxTable}}</div>
         </div>
     </div>
 </body>
@@ -40,7 +40,8 @@
 
 <script type="module">
 import { createApp, ref } from 'vue';
-const page = createApp({
+const option = {};
+option.page = {
     setup(){
         const isShowMask = ref(true);
         return {
@@ -48,33 +49,29 @@ const page = createApp({
         }
     },
     created() {
-        console.log(`created`);
         this.isShowMask = ref(false);
     },
     mounted() {
-        console.log(`mounted`);
-        this.isShowMask = ref(false);
-        window.onload = ()=>{
-            console.log(`mounted-onloaded`);
-            this.isShowMask = ref(false);
-        }
     },
-});
-page.mount("#page");
+}
 
-const app = createApp({
+option.app = {
     setup() {
+        const taxTable = config.template;
+        console.log(config.template);
         return {
-            taxTable:"<ul><li>aaaaaaaa</li></ul>"
+            taxTable
         }
     },
-    mounted() {
-        this.render();
+    created() {
     },
     methods:{
-        render:function(){ this.taxTable=config.template; },
     },
-});
+}
+
+const page = createApp(option.page);
+page.mount("#page");
+const app = createApp(option.app);
 app.mount('#app');
 </script>
 

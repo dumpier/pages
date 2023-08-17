@@ -14,7 +14,7 @@ var config = config || {
         [],
     ],
 
-    template:`
+    template:/*html*/`
 <div class="column">
     <table class="table border">
         <thead>
