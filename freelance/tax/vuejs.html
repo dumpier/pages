@@ -9,11 +9,11 @@
     <script src="./res/config.js"></script>
 </head>
 <body>
-    <div id="page">
+    <div id="app">
         <div id="mask" class="mask" v-show="isShowMask"><div class="loader"></div></div>
         <h1>個人事業主の税金計算(vue.js版)</h1>
         <div id="content">
-            <div id="app" class="flex">{{taxTable}}</div>
+            <div class="flex" v-html="taxTable"></div>
         </div>
     </div>
 </body>
@@ -40,38 +40,22 @@
 
 <script type="module">
 import { createApp, ref } from 'vue';
-const option = {};
-option.page = {
+const option = {
     setup(){
         const isShowMask = ref(true);
+        const taxTable = config.template;
         return {
-            isShowMask
+            isShowMask,
+            taxTable,
         }
     },
     created() {
         this.isShowMask = ref(false);
     },
-    mounted() {
-    },
-}
+    mounted() {},
+};
 
-option.app = {
-    setup() {
-        const taxTable = config.template;
-        console.log(config.template);
-        return {
-            taxTable
-        }
-    },
-    created() {
-    },
-    methods:{
-    },
-}
-
-const page = createApp(option.page);
-page.mount("#page");
-const app = createApp(option.app);
+const app = createApp(option);
 app.mount('#app');
 </script>
 

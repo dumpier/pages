@@ -23,8 +23,6 @@
 $(function(){
     tax.render();
     $(document).on("change", `input[type="text"].amount, input[type="text"].age, input[type="text"].number`, function(){ tax.refresh($(this));});
-    $(document).on("mouseover", `span:has('.balloon')`, function(){$(this).find(".balloon").show()});
-    $(document).on("mouseleave", `span:has('.balloon')`, function(){$(this).find(".balloon").hide()});
     $(".mask").hide();
 });
 
