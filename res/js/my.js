@@ -47,6 +47,12 @@ const myjs = {
     },
 };
 
+myjs.req = {
+    url:(url)=>{ return new URL(url===undefined ? window.location.href : url); },
+    base:()=>{ return window.location.href.replace(/\?.+/g, ""); },
+    get:function(name){ return name===undefined ? this.url().searchParams.getAll() : this.url().searchParams.get(name); },
+};
+
 myjs.attribute = {
     access:function(name, val){
         if(val===undefined) {
@@ -63,14 +69,11 @@ myjs.attribute = {
 };
 
 myjs.css = {};
-myjs.css.id = {};
-myjs.css.style = {};
 myjs.css.class = {
-    get:function(){ return this.get().classList.value; },
-    has:function(name){ this.get().classList.contains(name); },
-    add:function(...name){ this.get().classList.add(...name); return this; },
-    remove:function(name){ this.get().classList.remove(name); return this; },
-    toggle:function(name){ this.get().classList.toggle(name); return this; },
-    replace:function(name, new_name){ this.get().classList.replace(name, new_name); return this; },
+    get:function(){ return myjs.first().classList.value; },
+    has:function(name){ return myjs.first().classList.contains(name); },
+    add:function(obj, ...name){ obj.all().forEach(el=>{el.classList.add(...name)}); return obj; },
+    remove:function(obj, name){ obj.all().forEach(el=>{el.classList.remove(name)}); return obj; },
+    toggle:function(obj, name){ obj.all().forEach(el=>{el.classList.toggle(name)}); return obj; },
+    replace:function(obj, name, new_name){ obj.all().forEach(el=>{el.classList.replace(name, new_name)}); return obj; },
 };
-

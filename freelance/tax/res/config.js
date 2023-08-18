@@ -15,7 +15,7 @@ var config = config || {
     ],
 
     template:/*html*/`
-<div id="app" class="flex">
+<div class="flex">
     <div class="column">
         <table class="table border">
             <thead>

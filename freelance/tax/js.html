@@ -43,6 +43,7 @@ window.onload=()=>{
 	tax.render("#app");
 	$("input[type=text].amount, input[type=text].age").on("change", function(){ tax.input.change(); });
 	$(".mask").hide();
+	console.log($(".mask").css.class.has("test"));
 }
 
 var tax = tax || {

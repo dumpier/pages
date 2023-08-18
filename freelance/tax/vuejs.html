@@ -7,12 +7,14 @@
     <title>年金・保険・税金の計算</title>
     <link href="./res/default.css" rel="stylesheet">
     <script src="./res/config.js"></script>
+	<script src="../../res/js/my.js"></script>
 </head>
 <body>
     <div id="app">
         <div id="mask" class="mask" v-show="isShowMask"><div class="loader"></div></div>
         <h1>個人事業主の税金計算(vue.js版)</h1>
-        <div id="content" v-html="taxTable"></div>
+        <span class="ml-10" v-html="changeMode"></span>
+        <div id="content" v-html="template"></div>
     </div>
 </body>
 
@@ -38,22 +40,58 @@
 
 <script type="module">
 import { createApp, ref } from 'vue';
-const option = {
-    setup(){
-        const isShowMask = ref(true);
-        const taxTable = config.template;
-        return {
-            isShowMask,
-            taxTable,
-        }
+const mode = {
+    0:"composition",
+    1:"options",
+    current:()=>{ return myjs.req.get("mode")==1 ? 1:0; },
+    next:()=>{ return mode.current()==0 ? 1:0; },
+    isCompositionApi:()=>{ return mode.current()==0 ? true : false; },
+    isOptionsApi:()=>{ return !mode.isCompositionApi(); },
+    switch:()=>{
+        let current_mode = mode[mode.current()];
+        let next_mode = mode[mode.next()];
+        let base_url = myjs.req.base();
+        return `Now in ${mode[mode.current()]} api mode, switch to <a href="${base_url}?mode=${mode.next()}">${mode[mode.next()]} api</a> mode`;
     },
+};
+const option = {};
+// CompositionとOptions APIの共通オプション
+option.common = {
     created() {
-        this.isShowMask = ref(false);
+        this.isShowMask = false;
+        this.changeMode = mode.switch();
     },
     mounted() {},
+    methods:{},
 };
 
-const app = createApp(option);
+option.composition = Object.assign({}, option.common);
+option.options = Object.assign({}, option.common);
+
+option.composition.setup = function () {
+    console.log("Vue is composition api mode");
+    const isShowMask = ref(true);
+    const template = config.template;
+    const changeMode = "";
+    return {
+        isShowMask,
+        template,
+        changeMode,
+    }
+};
+
+option.options.data = function () {
+    console.log("Vue is options api mode");
+    return {
+        isShowMask:true,
+        template:config.template,
+        changeMode:"",
+    }
+};
+
+
+option.current = mode.isOptionsApi() ? option.options : option.composition;
+const app = createApp(option.current);
 app.mount('#app');
 </script>
 
