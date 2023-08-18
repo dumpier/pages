@@ -11,9 +11,9 @@
 </head>
 <body>
     <div id="app">
-        <div id="mask" class="mask" v-show="isShowMask"><div class="loader"></div></div>
+        <div id="mask" class="mask" v-show="mask"><div class="loader"></div></div>
         <h1>個人事業主の税金計算(vue.js版)</h1>
-        <span class="ml-10" v-html="changeMode"></span>
+        <span v-html="mode"></span>
         <div id="content" v-html="template"></div>
     </div>
 </body>
@@ -29,7 +29,6 @@
     </div>
 </template>
 
-
 <script type="importmap">
 {
     "imports": {
@@ -40,59 +39,58 @@
 
 <script type="module">
 import { createApp, ref } from 'vue';
+
+// apiの切り替え制御
 const mode = {
-    0:"composition",
-    1:"options",
+    config:{0:"composition", 1:"options",},
     current:()=>{ return myjs.req.get("mode")==1 ? 1:0; },
-    next:()=>{ return mode.current()==0 ? 1:0; },
-    isCompositionApi:()=>{ return mode.current()==0 ? true : false; },
-    isOptionsApi:()=>{ return !mode.isCompositionApi(); },
-    switch:()=>{
-        let current_mode = mode[mode.current()];
-        let next_mode = mode[mode.next()];
-        let base_url = myjs.req.base();
-        return `Now in ${mode[mode.current()]} api mode, switch to <a href="${base_url}?mode=${mode.next()}">${mode[mode.next()]} api</a> mode`;
-    },
+    next:function(){ return this.current()==0 ? 1:0; },
+    isCompositionApi:function(){ return this.current()==0 ? true : false; },
+    isOptionsApi:function(){ return !this.isCompositionApi(); },
+    switch:function(){ return `Now in ${this.config[this.current()]} api mode, switch to <a href="${myjs.req.base()}?mode=${this.next()}">${this.config[this.next()]} api</a> mode.`; },
 };
+
+// createAppのオプション
 const option = {};
-// CompositionとOptions APIの共通オプション
+// composition apiとoptions apiの共通オプション
 option.common = {
     created() {
-        this.isShowMask = false;
-        this.changeMode = mode.switch();
+        this.mask = false;
+        this.mode = mode.switch();
     },
     mounted() {},
     methods:{},
 };
 
+// compositionとoptionsに共通を割り当てる
 option.composition = Object.assign({}, option.common);
 option.options = Object.assign({}, option.common);
 
+// composition apiの独自設定
 option.composition.setup = function () {
-    console.log("Vue is composition api mode");
-    const isShowMask = ref(true);
+    console.log("Is composition api mode");
+    const mask = ref(true);
     const template = config.template;
-    const changeMode = "";
+    const mode = "";
     return {
-        isShowMask,
+        mask,
         template,
-        changeMode,
+        mode,
     }
 };
 
+// options apiの独自設定
 option.options.data = function () {
-    console.log("Vue is options api mode");
+    console.log("Is options api mode");
     return {
-        isShowMask:true,
-        template:config.template,
-        changeMode:"",
+        mask : true,
+        template : config.template,
+        mode : "",
     }
 };
-
 
 option.current = mode.isOptionsApi() ? option.options : option.composition;
 const app = createApp(option.current);
 app.mount('#app');
 </script>
-
 </html>

@@ -2,9 +2,8 @@ const myjs = {
     elements:[],
     instance:function(selector){
         if(selector===undefined){ return myjs; }
-        const obj = Object.create(myjs);
+        const obj = Object.assign({}, myjs);
         obj.elements = myjs.type(selector)=="String" ? document.querySelectorAll(selector):selector;
-        // obj.attribute.elements = obj.css.elements = obj.css.id.elements = obj.css.style.elements = obj.css.class.elements = obj.elements;
         return obj;
     },
     on:function(type, handle) { this.all().forEach(el=>{el.addEventListener(type, handle, false);}); return this; },
