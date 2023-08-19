@@ -14,7 +14,8 @@
         <div id="mask" class="mask" v-show="mask"><div class="loader"></div></div>
         <h1>個人事業主の税金計算(vue.js版)</h1>
         <span v-html="mode"></span>
-        <div id="content" v-html="template"></div>
+        <!-- <div id="content" v-html="template"></div> -->
+        <div id="content"><template-component></template-component></div>
     </div>
 </body>
 
@@ -46,20 +47,28 @@ const mode = {
     current:()=>{ return myjs.req.get("mode")==1 ? 1:0; },
     next:function(){ return this.current()==0 ? 1:0; },
     isCompositionApi:function(){ return this.current()==0 ? true : false; },
-    isOptionsApi:function(){ return !this.isCompositionApi(); },
     switch:function(){ return `Now in ${this.config[this.current()]} api mode, switch to <a href="${myjs.req.base()}?mode=${this.next()}">${this.config[this.next()]} api</a> mode.`; },
 };
+
 
 // createAppのオプション
 const option = {};
 // composition apiとoptions apiの共通オプション
 option.common = {
     created() {
+        console.log("created");
         this.mask = false;
         this.mode = mode.switch();
     },
-    mounted() {},
-    methods:{},
+    mounted(){},
+    methods:{
+    },
+    computed:{
+        test(newVal) { console.log(newVal); },
+    },
+    watch:{
+        input(after, before){ console.log("watch", after, before); },
+    },
 };
 
 // compositionとoptionsに共通を割り当てる
@@ -89,8 +98,21 @@ option.options.data = function () {
     }
 };
 
-option.current = mode.isOptionsApi() ? option.options : option.composition;
+option.current = mode.isCompositionApi() ? option.composition : option.options;
 const app = createApp(option.current);
+
+// v-html の内容は、プレーンな HTML として挿入されます - Vue テンプレートの構文は処理されません。
+// もし、v-html を使ってテンプレートを構成しようとしているのであれば、代わりにコンポーネントを使うなどして解決策を見直してみてください。
+app.component("template-component", {
+    data(){return {
+        input: 600
+    }},
+    template : config.template,
+    watch:{
+        input(after, before){ console.log("watch", after, before); },
+    },
+});
+
 app.mount('#app');
 </script>
 </html>

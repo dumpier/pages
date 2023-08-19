@@ -44,6 +44,8 @@ var tax = tax || {
             let css_id = $text.prop("id");
             let css_id_common = $text.prop("id").replace(/input-yearly-/, "");
 
+            let data_value = $text.data("value");
+            if (data_value) $text.val(data_value);
             let amount = tax.eval($text.val());
             let amount_monthly = (amount/12).toFixed(1);
             $(`#monthly-${css_id_common}`).text(amount ? amount_monthly : "");
