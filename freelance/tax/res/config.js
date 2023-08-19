@@ -47,26 +47,10 @@ var config = config || {
 
                 <tr><th colspan="2"><span style="color:blue;">課税所得額</span></th><td class="amount monthly" id="monthly-4-0"></td><td class="amount yearly bold" id="yearly-4-0"></td></tr>
                 <tr><th rowspan="2"></th>
-                    <td>
-                        <span>国民健康保険年間所得額
-                            <span class="balloon">※<span style="color:blue;">課税所得額</span>-43万円</span>
-                        </span>
-                    </td>
+                    <td><span>国民健康保険年間所得額<span class="balloon">※<span style="color:blue;">課税所得額</span>-43万円</span></span></td>
                     <td class="amount monthly" id="monthly-4-1"></td><td class="amount yearly bold" id="yearly-4-1"></td></tr>
                 <tr>
-                    <td>
-                        <span>課税所得額による所得税率
-                            <span class="balloon"><span style="color:blue;">※課税所得額</span>より変動します。
-                                <br>　・195万以下、5%
-                                <br>　・330万以下、10%
-                                <br>　・695万以下、20%
-                                <br>　・900万以下、23%
-                                <br>　・1800万以下、33%
-                                <br>　・4000万以下、40%
-                                <br>　・4000万以上、45%
-                            </span>
-                        </span>
-                    </td>
+                    <td><span>課税所得額による所得税率<span class="balloon"><span style="color:blue;">※課税所得額</span>より変動します。<br>　・195万以下、5%<br>　・330万以下、10%<br>　・695万以下、20%<br>　・900万以下、23%<br>　・1800万以下、33%<br>　・4000万以下、40%<br>　・4000万以上、45%</span></span></td>
                     <td class="right" id="monthly-4-2"></td><td class="right bold" id="yearly-4-2"></td>
                 </tr>
             </tbody>
@@ -112,4 +96,4 @@ var config = config || {
     </div>
 </div>
     `,
-}
+};

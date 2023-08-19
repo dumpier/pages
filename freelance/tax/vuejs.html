@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="app">
-        <div id="mask" class="mask" v-show="mask"><div class="loader"></div></div>
+        <div id="mask" class="mask" v-show="loading"><div class="loader"></div></div>
         <h1>個人事業主の税金計算(vue.js版)</h1>
         <span v-html="mode"></span>
         <!-- <div id="content" v-html="template"></div> -->
@@ -57,18 +57,13 @@ const option = {};
 option.common = {
     created() {
         console.log("created");
-        this.mask = false;
+        this.loading = false;
         this.mode = mode.switch();
     },
     mounted(){},
-    methods:{
-    },
-    computed:{
-        test(newVal) { console.log(newVal); },
-    },
-    watch:{
-        input(after, before){ console.log("watch", after, before); },
-    },
+    methods:{},
+    computed:{},
+    watch:{},
 };
 
 // compositionとoptionsに共通を割り当てる
@@ -78,12 +73,10 @@ option.options = Object.assign({}, option.common);
 // composition apiの独自設定
 option.composition.setup = function () {
     console.log("Is composition api mode");
-    const mask = ref(true);
-    const template = config.template;
+    const loading = ref(true);
     const mode = "";
     return {
-        mask,
-        template,
+        loading,
         mode,
     }
 };
@@ -92,8 +85,7 @@ option.composition.setup = function () {
 option.options.data = function () {
     console.log("Is options api mode");
     return {
-        mask : true,
-        template : config.template,
+        loading : true,
         mode : "",
     }
 };
@@ -105,7 +97,7 @@ const app = createApp(option.current);
 // もし、v-html を使ってテンプレートを構成しようとしているのであれば、代わりにコンポーネントを使うなどして解決策を見直してみてください。
 app.component("template-component", {
     data(){return {
-        input: 600
+        input: ""
     }},
     template : config.template,
     watch:{
