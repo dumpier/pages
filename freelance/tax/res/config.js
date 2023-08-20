@@ -24,7 +24,7 @@ var config = config || {
             <tbody>
                 <tr><th colspan="2">収入</th><td class="amount monthly" id="monthly-1-0"></td><td class="amount yearly bold" id="yearly-1-0"></td></tr>
                 <tr><th rowspan="2"></th><td>売上</td><td class="amount income" id="monthly-1-1"></td><td class="right" id="yearly-1-1"><input type="text" class="amount income" id="input-yearly-1-1" v-model="input" data-value="600"></td></tr>
-                <tr><td>売上（補正用）</td><td class="amount income" id="monthly-1-2"></td><td class="amount" id="yearly-1-2"><input type="text" class="amount income" id="input-yearly-1-2" data-value=""></td></tr>
+                <tr><td>売上（補正用）</td><td class="amount income" id="monthly-1-2"></td><td class="amount" id="yearly-1-2"><input type="text" class="amount income" id="input-yearly-1-2" v-model="input" data-value=""></td></tr>
 
                 <tr><th colspan="2">経費</th><td class="amount monthly cost" id="monthly-2-0"></td><td class="amount yearly cost bold" id="yearly-2-0"></td></tr>
                 <tr><th rowspan="2"></th><td>経費</td><td class="amount cost" id="monthly-2-1"></td><td class="right" id="yearly-2-1"><input type="text" class="amount cost" id="input-yearly-2-1" data-value="200"></td></tr>

@@ -2,8 +2,8 @@ const myjs = {
     elements:[],
     instance:function(selector){
         if(selector===undefined){ return myjs; }
-        const obj = Object.assign({}, myjs);
-        obj.elements = myjs.type(selector)=="String" ? document.querySelectorAll(selector):selector;
+        const obj = Object.assign({}, this);
+        obj.elements = this.type(selector)=="String" ? document.querySelectorAll(selector):selector;
         return obj;
     },
     on:function(type, handle) { this.all().forEach(el=>{el.addEventListener(type, handle, false);}); return this; },
@@ -76,3 +76,4 @@ myjs.css.class = {
     toggle:function(obj, name){ obj.all().forEach(el=>{el.classList.toggle(name)}); return obj; },
     replace:function(obj, name, new_name){ obj.all().forEach(el=>{el.classList.replace(name, new_name)}); return obj; },
 };
+

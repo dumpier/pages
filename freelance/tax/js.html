@@ -10,7 +10,7 @@
 	<script src="../../res/js/my.js"></script>
 </head>
 <body>
-	<div class="mask"><div class="loader"></div></div>
+	<div class="loading"><div class="loader"></div></div>
 	<h1>個人事業主の税金計算(自前js版)</h1>
 	<div id="content">
 		<div id="app" class="flex"></div>
@@ -42,8 +42,8 @@ const $ = (selector)=>{ return myjs.instance(selector); };
 window.onload=()=>{
 	tax.render("#app");
 	$("input[type=text].amount, input[type=text].age").on("change", function(){ tax.input.change(); });
-	$(".mask").hide();
-	console.log($(".mask").css.class.has("test"));
+	$(".loading").hide();
+	console.log($(".loading").css.class.has("test"));
 }
 
 var tax = tax || {

@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
-    <div class="mask"><div class="loader"></div></div>
+    <div class="loading"><div class="loader"></div></div>
     <h1>個人事業主の税金計算（jquery版）</h1>
     <div id="content"></div>
 </body>
@@ -21,7 +21,7 @@
 $(function(){
     tax.render();
     $(document).on("change", `input[type="text"].amount, input[type="text"].age, input[type="text"].number`, function(){ tax.refresh($(this));});
-    $(".mask").hide();
+    $(".loading").hide();
 });
 
 var tax = tax || {

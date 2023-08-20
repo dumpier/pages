@@ -9,26 +9,17 @@
     <script src="./res/config.js"></script>
 	<script src="../../res/js/my.js"></script>
 </head>
+
 <body>
     <div id="app">
-        <div id="mask" class="mask" v-show="loading"><div class="loader"></div></div>
+        <div class="loading" v-show="loading"><div class="loader"></div></div>
         <h1>個人事業主の税金計算(vue.js版)</h1>
         <span v-html="mode"></span>
         <!-- <div id="content" v-html="template"></div> -->
-        <div id="content"><template-component></template-component></div>
+        <div id="content"><tax-table/></div>
     </div>
 </body>
 
-<template id="tax-table">
-    <div class="column">
-        <table class="table border">
-            <thead>
-                <tr><th colspan=2 class="diagonal">{usage}</th><th>月間(万円)</th><th>年間(万円)</th></tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-</template>
 
 <script type="importmap">
 {
@@ -60,8 +51,13 @@ option.common = {
         this.loading = false;
         this.mode = mode.switch();
     },
-    mounted(){},
-    methods:{},
+    mounted(){
+        window.addEventListener('change', self.input(event), false);
+    },
+    destroyed(){},
+    methods:{
+        input:function(event){ console.log(event);  },
+    },
     computed:{},
     watch:{},
 };
@@ -93,13 +89,16 @@ option.options.data = function () {
 option.current = mode.isCompositionApi() ? option.composition : option.options;
 const app = createApp(option.current);
 
-// v-html の内容は、プレーンな HTML として挿入されます - Vue テンプレートの構文は処理されません。
-// もし、v-html を使ってテンプレートを構成しようとしているのであれば、代わりにコンポーネントを使うなどして解決策を見直してみてください。
-app.component("template-component", {
-    data(){return {
-        input: ""
-    }},
-    template : config.template,
+// Contents of v-html are inserted as plain HTML - Vue template syntax will not be processed. If you find yourself trying to compose templates using v-html, try to rethink the solution by using components instead.
+// v-html の内容は、プレーンな HTML として挿入されます - Vue テンプレートの構文は処理されません。もし、v-html を使ってテンプレートを構成しようとしているのであれば、代わりにコンポーネントを使うなどして解決策を見直してみてください。
+// v-html 的内容直接作为普通 HTML 插入—— Vue 模板语法是不会被解析的。如果你发现自己正打算用 v-html 来编写模板，不如重新想想怎么使用组件来代替。
+app.component("tax-table", {
+    data(){
+        return {
+            input: []
+        }
+    },
+    template : /*html文字列*/config.template,
     watch:{
         input(after, before){ console.log("watch", after, before); },
     },
