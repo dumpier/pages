@@ -7,6 +7,7 @@
 	<title>年金・保険・税金の計算</title>
 	<link href="./res/default.css" rel="stylesheet">
 	<script src="./res/config.js"></script>
+    <script src="./res/tax.js"></script>
 	<script src="../../res/js/my.js"></script>
 </head>
 <body>
@@ -40,19 +41,19 @@
 // myjsの短縮を定義
 const $ = (selector)=>{ return myjs.instance(selector); };
 window.onload=()=>{
-	tax.render("#app");
-	$("input[type=text].amount, input[type=text].age").on("change", function(){ tax.input.change(); });
+	app.render("#app");
+	$("input[type=text].amount, input[type=text].age").on("change", function(){ app.input.change(); });
 	$(".loading").hide();
 	console.log($(".loading").css.class.has("test"));
 }
 
-var tax = tax || {
+var app = app || {
 	render:(selector, items)=>{
 		const html = {"raw":""};
 		let operator = {};
 		(items || config.items).forEach(function(item, i){
 			if (myjs.type(item)==="Object") return operator = item;
-			if (item.length == 0) return tax.assign(selector, html, operator);
+			if (item.length == 0) return app.assign(selector, html, operator);
 
 			let item_count = item.length - 1;
 			item.forEach(function(name, ii) {
@@ -78,7 +79,7 @@ var tax = tax || {
 	},
 };
 
-tax.input = {
+app.input = {
 	// 入力が変更された場合
 	change:()=>{
 		$("#app input[type=text].amount").get().forEach(function(input){
