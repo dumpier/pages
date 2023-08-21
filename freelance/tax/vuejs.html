@@ -51,12 +51,10 @@ option.common = {
         this.loading = false;
         this.mode = mode.switch();
     },
-    mounted(){
-        window.addEventListener('change', self.input(event), false);
-    },
+    mounted(){},
     destroyed(){},
     methods:{
-        input:function(event){ console.log(event);  },
+        refresh(){},
     },
     computed:{},
     watch:{},

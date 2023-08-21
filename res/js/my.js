@@ -77,3 +77,19 @@ myjs.css.class = {
     replace:function(obj, name, new_name){ obj.all().forEach(el=>{el.classList.replace(name, new_name)}); return obj; },
 };
 
+const test = {
+    data:[],
+    instance(data){
+        const obj=Object.assign({}, this);
+        obj.data=data;
+
+        return obj;
+    },
+    run(){console.log("test.run()", this.data);},
+    sub:{
+        run(){console.log("test.sub.run()", this.caller);},
+    },
+}
+
+test.instance("aaaaaaaaaa").run();
+test.instance("bbbbbbbbbb").sub.run();
