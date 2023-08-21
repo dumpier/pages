@@ -73,7 +73,7 @@ var config = config || {
                 <tr><th colspan="2">税金</th><td class="amount monthly"></td><td class="amount yearly bold" id="yearly-7-0"></td></tr>
                 <tr><th rowspan="7"></th><td>住民税・均等割</td><td class="amount monthly" id="monthly-7-1"></td><td class="amount yearly" id="yearly-7-1">0.5</td></tr>
                 <tr><td><span>住民税・所得割<span class="balloon">課税所得額x一律10％<br>※道府県民税が一律4%、市町村民税が一律6%</span></span></td><td class="amount monthly" id="monthly-7-2"></td><td class="amount yearly" id="yearly-7-2"></td></tr>
-                <tr><td>個人事業税</td><td class="amount monthly" id="monthly-7-3"></td><td class="amount yearly" id="yearly-7-3"></td></tr>
+                <tr><td><span>個人事業税<span class="balloon">※（課税所得額-290万円）x 5%</span></span></td><td class="amount monthly" id="monthly-7-3"></td><td class="amount yearly" id="yearly-7-3"></td></tr>
                 <tr><td><span>所得税<span class="balloon">課税所得額x所得税率</span></span></td><td class="amount monthly" id="monthly-7-4"></td><td class="amount yearly" id="yearly-7-4"></td></tr>
                 <tr><td>消費税</td><td class="amount monthly" id="monthly-7-5"></td><td class="amount yearly" id="yearly-7-5"></td></tr>
                 <tr><td>固定資産税</td><td class="amount monthly" id="monthly-7-6"></td><td class="amount" id="yearly-7-6"><input type="text" class="amount" id="input-yearly-7-6" data-value=""></td></tr>

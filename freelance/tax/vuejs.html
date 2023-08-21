@@ -58,7 +58,7 @@ option.common = {
     },
     destroyed(){},
     methods:{
-        refresh(){},
+        refresh(){ return tax.refresh(); },
     },
     computed:{},
     watch:{},
@@ -100,7 +100,6 @@ const app = createApp(option.current);
 app.component("tax-table", {
     data(){
         return {
-            input: []
         }
     },
     template : /*html文字列*/config.template,
