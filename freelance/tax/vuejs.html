@@ -40,7 +40,7 @@ const mode = {
     current:()=>{ return myjs.req.get("mode")==1 ? 1:0; },
     next:function(){ return this.current()==0 ? 1:0; },
     isCompositionApi:function(){ return this.current()==0 ? true : false; },
-    switch:function(){ return `Now in ${this.config[this.current()]} api mode, switch to <a href="${myjs.req.base()}?mode=${this.next()}">${this.config[this.next()]} api</a> mode.`; },
+    render:function(){ return `Now in ${this.config[this.current()]} api mode, switch to <a href="${myjs.req.base()}?mode=${this.next()}">${this.config[this.next()]} api</a> mode.`; },
 };
 
 
@@ -51,7 +51,7 @@ option.common = {
     created() {
         console.log("created");
         this.loading = false;
-        this.mode = mode.switch();
+        this.mode = mode.render();
     },
     mounted(){
         tax.refresh();
