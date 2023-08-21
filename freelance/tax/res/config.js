@@ -1,4 +1,11 @@
 var config = config || {
+    links:/*html*/`
+    <ul class="inline">
+        <li><a href="./index.html">jquery版</a></li>
+        <li><a href="./js.html">自前js版</a></li>
+        <li><a href="./vuejs.html">vue.js版</a></li>
+    </ul>
+    `,
     items:[
         {editable:true, title:"入力用"},
         ["収入", "売上", "売上（補正用）"],

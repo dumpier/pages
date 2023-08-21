@@ -13,9 +13,8 @@
 <body>
 	<div class="loading"><div class="loader"></div></div>
 	<h1>個人事業主の税金計算(自前js版)</h1>
-	<div id="content">
-		<div id="app" class="flex"></div>
-	</div>
+	<span id="links"></span>
+	<div id="content"><div id="app" class="flex"></div></div>
 </body>
 
 <template id="tax-table">
@@ -29,18 +28,12 @@
 	</div>
 </template>
 
-<template id="tax-input-age">
-	<tr><th rowspan="4"></th><th rowspan="4">加入者年齢</th><td class="right"><input type="text" class="right age" id="age-1" value=""></td><td class="right"><input type="text" class="right age" id="age-2" value=""></td></tr>
-	<tr><td class="right"><input type="text" class="right age" id="age-3" value=""></td><td class="right"><input type="text" class="right age" id="age-4" value=""></td></tr>
-	<tr><td class="right"><input type="text" class="right age" id="age-4" value=""></td><td class="right"><input type="text" class="right age" id="age-6" value=""></td></tr>
-	<tr><td class="right"><input type="text" class="right age" id="age-5" value=""></td><td class="right"><input type="text" class="right age" id="age-8" value=""></td></tr>
-</template>
-
 
 <script>
 // myjsの短縮を定義
 const $ = (selector)=>{ return myjs.instance(selector); };
 window.onload=()=>{
+    $("#links").html(config.links);
 	app.render("#app");
 	$("input[type=text].amount, input[type=text].age").on("change", function(){ app.input.change(); });
 	$(".loading").hide();
@@ -64,7 +57,7 @@ var app = app || {
 				if (ii>=2) html.raw += `<tr><td>${name}</td><td class="amount" id="monthly-${css_id}"></td><td class="right" id="yearly-${css_id}">${input_yearly}</td></tr>`;
 
 				if ("保険"===name) {
-					html.raw += $("#tax-input-age").html();
+					//html.raw += $("#tax-input-age").html();
 				}
 			});
 		});

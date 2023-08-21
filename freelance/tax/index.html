@@ -14,12 +14,14 @@
 <body>
     <div class="loading"><div class="loader"></div></div>
     <h1>個人事業主の税金計算（jquery版）</h1>
+    <span id="links"></span>
     <div id="content"></div>
 </body>
 
 
 <script>
 $(function(){
+    $("#links").html(config.links);
     $("#content").html(config.template);
     tax.refresh();
     $(document).on("change", `input[type="text"].amount, input[type="text"].age, input[type="text"].number`, function(){ tax.refresh();});
