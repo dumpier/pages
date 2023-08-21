@@ -51,7 +51,9 @@ option.common = {
         this.loading = false;
         this.mode = mode.switch();
     },
-    mounted(){},
+    mounted(){
+        tax.refresh();
+    },
     destroyed(){},
     methods:{
         refresh(){},
