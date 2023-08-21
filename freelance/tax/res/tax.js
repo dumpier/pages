@@ -4,24 +4,6 @@ var $$ = $$ || {
 }
 
 var tax = tax || {
-    eval:(v)=>{ return Number((myjs.type(v)=="String" && v.match(/^=/)) ? eval(v.slice(1)) : v); },
-    rate:{
-        income(taxable){
-            // 所得税率定義（195万以上10％、330万以上20％、695万以上23％。。。）
-            const rate = { 0:5, 195:10, 330:20, 695:23, 900:33, 1800:40, 4000:45,};
-            let income_tax_rate = 0;
-            Object.keys(rate).forEach((amount)=>{
-                if (taxable >= amount) { income_tax_rate = rate[amount]; }
-            });
-
-            return income_tax_rate;
-        },
-    },
-    freelance:{
-        // 個人事業税
-        tax(taxable){ return (taxable>=290 ? (taxable-290)*0.05 : 0).toFixed(1); },
-    },
-
     refresh(){
         const total = {
             /*収入*/income:0,
@@ -34,7 +16,6 @@ var tax = tax || {
             /*支払総額*/payment:0,
             /*手取総額*/after_tax:0,
         };
-
 
         // datasetに設定した初期値の反映（v-modelのを使うとvalueが無効化されるのでdatasetに初期値を設定する）
         $$.all(`input[type="text"]`).forEach((input)=>{
@@ -107,21 +88,8 @@ var tax = tax || {
         $$.get(`yearly-8-0`).textContent = total.pension;
 
         // 保険
-        // 加入者情報
-        const persons = { total:0, under_40:0, between_40_65:0, between_66_74:0, after_75:0, };
-        $$.all(`input[type=text].age`).forEach(function(input){
-            let age = input.value;
-            if (age==="") { return ; }
-
-            age = Number(age);
-            persons.total += 1;
-            if (age<40) { return persons.under_40 += 1; }
-            if (age<65) { return persons.between_40_65 += 1; }
-            if (age<75) { return persons.between_66_74 += 1; }
-            if (age>=75) { return persons.after_75 += 1; }
-        });
-        persons.total = persons.total==0 ? 1 : persons.total;
-
+        // 加入者情報の集計
+        const persons = this.persons.totalling();
         // 国民健康保険・均等割
         tax_amount = 4.5*persons.total;
         total.insurance += Number(tax_amount);
@@ -154,5 +122,43 @@ var tax = tax || {
             let amount_monthly = amount_yearly ? Number(amount_yearly/12).toFixed(2) : "";
             td.closest("tr").querySelector("td.amount.monthly").textContent = amount_monthly;
         });
+    },
+
+    eval:(v)=>{ return Number((myjs.type(v)=="String" && v.match(/^=/)) ? eval(v.slice(1)) : v); },
+
+    rate:{
+        income(taxable){
+            // 所得税率定義（195万以上10％、330万以上20％、695万以上23％。。。）
+            const rate = { 0:5, 195:10, 330:20, 695:23, 900:33, 1800:40, 4000:45,};
+            let income_tax_rate = 0;
+            Object.keys(rate).forEach((amount)=>{
+                if (taxable >= amount) { income_tax_rate = rate[amount]; }
+            });
+
+            return income_tax_rate;
+        },
+    },
+    persons:{
+        // 保険加入人数の算出
+        totalling(){
+            const result = {total:0, under_40:0, between_40_65:0, between_66_74:0, after_75:0,};
+            $$.all(`input[type=text].age`).forEach(function(input){
+                let age = input.value;
+                if (age==="") { return ; }
+
+                age = Number(age);
+                result.total += 1;
+                if (age<40) { return result.under_40 += 1; }
+                if (age<65) { return result.between_40_65 += 1; }
+                if (age<75) { return result.between_66_74 += 1; }
+                if (age>=75) { return result.after_75 += 1; }
+            });
+            result.total = result.total==0 ? 1 : result.total;
+            return result;
+        },
+    },
+    freelance:{
+        // 個人事業税
+        tax(taxable){ return (taxable>=290 ? (taxable-290)*0.05 : 0).toFixed(1); },
     },
 };

@@ -91,8 +91,8 @@ var config = config || {
 
                 <tr><th rowspan="6"></th><td>国民健康保険・平等割</td><td class="amount monthly" id="monthly-9-1"></td><td class="amount yearly" id="yearly-9-1"></td></tr>
                 <tr><td>国民健康保険・均等割</td><td class="amount monthly" id="monthly-9-2"></td><td class="amount yearly" id="yearly-9-2"></td></tr>
-                <tr><td>国民健康保険・所得割</td><td class="amount monthly" id="monthly-9-3"></td><td class="amount yearly" id="yearly-9-3"></td></tr>
-                <tr><td>国民健康保険・後期高齢者(支援)</td><td class="amount monthly" id="monthly-9-4"></td><td class="amount yearly" id="yearly-9-4"></td></tr>
+                <tr><td><span>国民健康保険・所得割<span class="balloon">※(課税所得額-43万円)x7.17%</span></span></td><td class="amount monthly" id="monthly-9-3"></td><td class="amount yearly" id="yearly-9-3"></td></tr>
+                <tr><td><span>国民健康保険・後期高齢者(支援)<span class="balloon">※(課税所得額-43万円)x2.42%x後期高齢者人数40歳以上65歳未満の人数＋1.5万円x加入人数</span></span></td><td class="amount monthly" id="monthly-9-4"></td><td class="amount yearly" id="yearly-9-4"></td></tr>
                 <tr><td>国民健康保険・後期高齢者(介護)</td><td class="amount monthly" id="monthly-9-5"></td><td class="amount yearly" id="yearly-9-5"></td></tr>
                 <tr><td>保険（補正用）</td><td class="amount monthly" id="monthly-9-6"></td><td class="amount yearly" id="yearly-9-6"><input type="text" class="amount" id="input-yearly-9-6" data-value=""></td></tr>
                 <tr><th colspan="2">概要</th><td></td><td></td></tr>
