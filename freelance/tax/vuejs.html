@@ -43,7 +43,6 @@ const mode = {
     render:function(){ return `Now in ${this.config[this.current()]} api mode, switch to <a href="${myjs.req.base()}?mode=${this.next()}">${this.config[this.next()]} api</a> mode.`; },
 };
 
-
 // createAppのオプション
 const option = {};
 // composition apiとoptions apiの共通オプション
@@ -53,13 +52,9 @@ option.common = {
         this.loading = false;
         this.mode = mode.render();
     },
-    mounted(){
-        tax.refresh();
-    },
+    mounted(){},
     destroyed(){},
-    methods:{
-        refresh(){ return tax.refresh(); },
-    },
+    methods:{},
     computed:{},
     watch:{},
 };
@@ -103,8 +98,14 @@ app.component("tax-table", {
         }
     },
     template : /*html文字列*/config.template,
+    mounted(){
+        tax.refresh();
+    },
     watch:{
         input(after, before){ console.log("watch", after, before); },
+    },
+    methods:{
+        refresh(){ return tax.refresh(); },
     },
 });
 
