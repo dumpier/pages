@@ -1,45 +1,46 @@
 const myjs = {
     elements:[],
-    instance:function(selector){
+    instance(selector){
         if(selector===undefined){ return myjs; }
         const obj = Object.assign({}, this);
         obj.elements = this.type(selector)=="String" ? document.querySelectorAll(selector):selector;
+        [obj.attribute, obj.css, obj.css.id, obj.css.style, obj.css.class].forEach((p)=>{ Object.assign(p, obj); });
         return obj;
     },
-    on:function(type, handle) { this.all().forEach(el=>{el.addEventListener(type, handle, false);}); return this; },
-    off:function(type, handle){ this.all().forEach(el=>{el.removeEventListener(type, handle, false);}); return this; },
-    get:function(i){ return i===undefined ? this.elements : this.elements[i]; },
-    first:function(){ return this.isNodeList() ? this.elements[0] : this.elements; },
-    all:function(){ return this.isNodeList() ? this.elements:[this.elements]; },
-    type:function(obj){ obj = obj || this.elements; return Object.prototype.toString.call(obj).slice(8,-1) || typeof(obj); },
-    isNodeList:function( obj ){ return this.type()=="NodeList" ? true:false; },
-    isHtmlElement:function( obj ){ return this.type(obj).match(/^HTML.+Element$/) ? true:false; },
-    param:(name)=>{ return (new URL(window.location.href)).searchParams.get(name); },
+    on(type, handle) { this.all().forEach(el=>{el.addEventListener(type, handle, false);}); return this; },
+    off(type, handle) { this.all().forEach(el=>{el.removeEventListener(type, handle, false);}); return this; },
+    get(i) { return i===undefined ? this.elements : this.elements[i]; },
+    first() { return this.isNodeList() ? this.elements[0] : this.elements; },
+    all() { return this.isNodeList() ? this.elements:[this.elements]; },
+    type(obj) { obj = obj || this.elements; return Object.prototype.toString.call(obj).slice(8,-1) || typeof(obj); },
+    isNodeList(obj) { return this.type()=="NodeList" ? true:false; },
+    isHtmlElement(obj) { return this.type(obj).match(/^HTML.+Element$/) ? true:false; },
+    param(name) { return (new URL(window.location.href)).searchParams.get(name); },
 
-    show:function(){ this.all().forEach(el=>{el.style.display = "block";}); },
-    hide:function(){ this.all().forEach(el=>{el.style.display = "none";}); },
+    show() { this.all().forEach(el=>{el.style.display = "block";}); },
+    hide() { this.all().forEach(el=>{el.style.display = "none";}); },
 
-    html:function(val){ return this._access("innerHTML", val); },
-    text:function(val){ return this._access("textContent", val); },
-    _access:function(prop, val){
+    html(val) { return this._access("innerHTML", val); },
+    text(val) { return this._access("textContent", val); },
+    _access(prop, val) {
         if(val===undefined) { return this.first()[prop]; }
         this.all().forEach(el=>{el[prop] = val});
         return this;
     },
-    prepend:function(html){ this.all().forEach(el=>{el.innerHTML=html+el.innerHTML;}); return this; },
-    append:function(html){ this.all().forEach(el=>{el.innerHTML+=html;}); return this; },
-    remove:function(selector){},
+    prepend(html) { this.all().forEach(el=>{el.innerHTML=html+el.innerHTML;}); return this; },
+    append(html) { this.all().forEach(el=>{el.innerHTML+=html;}); return this; },
+    remove(selector) { this.all().forEach(el=>{el.querySelectorAll(selector).forEach((sub)=>{ sub.remove(); });}); return this; },
 
-    find:function(selector){  },
-    children:function(selector){  },
-    parent:function(selector){  },
-    closest:function(selector){  },
-    next:function(selector){  },
-    before:function(selector){  },
+    find(selector){  },
+    children(selector){  },
+    parent(selector){  },
+    closest(selector){  },
+    next(selector){  },
+    before(selector){  },
 
-    prop:function(name, val){ return this._access(name, val); },
-    attr:function(name, val){ return this._access(name, val); },
-    val:function(val){
+    prop(name, val){ return this._access(name, val); },
+    attr(name, val){ return this._access(name, val); },
+    val(val){
         if(val===undefined) { return this.first().value; }
         this.all().forEach(el=>{el.value = val});
         return this;
@@ -54,10 +55,7 @@ myjs.req = {
 
 myjs.attribute = {
     access:function(name, val){
-        if(val===undefined) {
-            return this.attribute.get(name);
-        }
-
+        if(val===undefined) { return this.attribute.get(name); }
         this.attribute.set(name, val);
         return this;
     },
@@ -68,28 +66,13 @@ myjs.attribute = {
 };
 
 myjs.css = {};
+myjs.css.id = {};
+myjs.css.style = {};
 myjs.css.class = {
-    get:function(){ return myjs.first().classList.value; },
-    has:function(name){ return myjs.first().classList.contains(name); },
-    add:function(obj, ...name){ obj.all().forEach(el=>{el.classList.add(...name)}); return obj; },
-    remove:function(obj, name){ obj.all().forEach(el=>{el.classList.remove(name)}); return obj; },
-    toggle:function(obj, name){ obj.all().forEach(el=>{el.classList.toggle(name)}); return obj; },
-    replace:function(obj, name, new_name){ obj.all().forEach(el=>{el.classList.replace(name, new_name)}); return obj; },
+    get:function(){ return this.first().classList.value; },
+    has:function(name){ return this.first().classList.contains(name); },
+    add:function(...name){ this.all().forEach(el=>{el.classList.add(...name)}); return obj; },
+    remove:function(name){ this.all().forEach(el=>{el.classList.remove(name)}); return obj; },
+    toggle:function(name){ this.all().forEach(el=>{el.classList.toggle(name)}); return obj; },
+    replace:function(name, new_name){ this.all().forEach(el=>{el.classList.replace(name, new_name)}); return obj; },
 };
-
-const test = {
-    data:[],
-    instance(data){
-        const obj=Object.assign({}, this);
-        obj.data=data;
-
-        return obj;
-    },
-    run(){console.log("test.run()", this.data);},
-    sub:{
-        run(){console.log("test.sub.run()", this.caller);},
-    },
-}
-
-test.instance("aaaaaaaaaa").run();
-test.instance("bbbbbbbbbb").sub.run();

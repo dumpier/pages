@@ -11,7 +11,7 @@
 	<script src="../../res/js/my.js"></script>
 </head>
 <body>
-	<div class="loading"><div class="loader"></div></div>
+	<div class="loading is-test"><div class="loader"></div></div>
 	<h1>個人事業主の税金計算(自前js版)</h1>
 	<span id="links"></span>
 	<div id="content"><div id="app" class="flex"></div></div>
@@ -44,7 +44,7 @@ window.onload=()=>{
 	app.render("#app");
 	$("input[type=text].amount, input[type=text].age").on("change", function(){ app.input.change(); });
 	$(".loading").hide();
-	console.log($(".loading").css.class.has("test"));
+	console.log($(".loading").css.class.has("test"), $(".loading").css.class.has("is-test"));
 }
 
 var app = app || {
