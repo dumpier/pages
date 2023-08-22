@@ -61,6 +61,7 @@ var tax = tax || {
         // 課税所得額による所得税率
         let income_tax_rate = tax.rate.income(total.taxable);
         $$.get(`yearly-4-2`).textContent = `${income_tax_rate}%`;
+        $$.get(`income_tax_rate`).textContent = `(税率：${income_tax_rate}%)`;
 
         let tax_amount = 0;
         // 住民税・所得割
