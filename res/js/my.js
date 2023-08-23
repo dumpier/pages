@@ -31,12 +31,12 @@ const myjs = {
     remove(selector) { this.all().forEach(el=>{el.querySelectorAll(selector).forEach((sub)=>{ sub.remove(); });}); return this; },
 
     find(selector){
-        const datas=[];
+        const elements=[];
         this.all().forEach((el)=>{
-            let data = el.querySelectorAll(selector);
-            if (data) { datas.push(data); }
+            let element = el.querySelectorAll(selector);
+            if (element) { elements.push(element); }
         });
-        return this.instance(datas);
+        return this.instance(elements);
     },
     children(selector){  },
     parent(selector){  },
@@ -53,7 +53,7 @@ const myjs = {
     },
 };
 
-myjs.req = myjs.req || {
+myjs.req = {
     url:(url)=>{ return new URL(url===undefined ? window.location.href : url); },
     base:()=>{ return window.location.href.replace(/\?.+/g, ""); },
     get(name){ return name===undefined ? this.url().searchParams.getAll() : this.url().searchParams.get(name); },
@@ -82,3 +82,4 @@ myjs.css.class = {
     toggle(name){ this.all().forEach(el=>{el.classList.toggle(name)}); return obj; },
     replace(name, new_name){ this.all().forEach(el=>{el.classList.replace(name, new_name)}); return obj; },
 };
+

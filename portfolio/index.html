@@ -1,36 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Dumpier Portfolio</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
 	<h1>Portfolio</h1>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<a target=_blank class="d-block" href="https://github.com/dumpier/php-presto-framework/blob/master/readme.md">自作PHP軽量フレームワークPresto</a>
+				<a target=_blank class="d-block" href="https://github.com/dumpier/php-presto-app/blob/master/readme.md">自作フレームワークPresto上で動くAPI</a>
+				<a target=_blank class="d-block" href="https://scrutinizer-ci.com/g/dumpier/php-presto-framework/">Scrutinizerのコード解析採点スコア（自作PHP軽量フレームワークPresto）</a>
+				<img width=500 class="d-block img-fluid" src="https://camo.githubusercontent.com/41345cfe284bf618ba6dd6b5a1c28aba33e98237f0dbabdaf7779085666bab65/68747470733a2f2f692e696d6775722e636f6d2f4143395942356c2e676966">
+			</div>
+			<div class="col-md-6">
+				<a target=_blank class="d-block" href="../freelance/tax/index.html">Javascript 税金を計算して見た</a>
+				<a target=_blank class="d-block" href="https://dumpier.github.io/javascript-presto/pages/battle/index.html">Javascript バトル演出</a>
+				<a target=_blank class="d-block" href="https://dumpier.github.io/javascript-presto/pages/webgl/index.html">Javascript 3D飛行機</a>
+				<a target=_blank class="d-block" href="https://dumpier.github.io/javascript-presto/pages/web/regist.html">会員登録フォーム</a>
+			</div>
+			<div class="col-md-6">
+				<a target=_blank class="d-block" href="https://github.com/nonecense/hintnote/blob/master/README.md">Unity3Dで開発したアプリ</a>
+				<img width=500 class="d-block img-fluid" src="https://camo.githubusercontent.com/c322559a0afec4e374e54b19452ac7a7af0c9155dd95d3b3ae63f079e49cdae5/687474703a2f2f692e696d6775722e636f6d2f4c32766f354d592e706e67">
+			</div>
+			<div class="col-md-6">
+				<a target=_blank class="d-block" href="https://github.com/dumpier/watchin">サーバー監視環境</a>
+				<span>Vagrant + Docker(docker-compose, nginx, php, mysql, mailhog)<br>Prometheus + Grafana + Alertmanager</span>
+			</div>
+		</div>
+		</div>
 
-	<style>
-	ul.link-list li span { display:block; }
-	</style>
-	<ul class="link-list">
-		<li>
-			<span class="title"></span><span class="link"><a target=_blank href="https://github.com/dumpier/php-presto-framework/blob/master/readme.md">自作PHP軽量フレームワークPresto</a></span>
-		</li>
-		<li>
-			<span class="title"></span><span class="link"><a target=_blank href="https://github.com/dumpier/php-presto-app/blob/master/readme.md">自作フレームワークPresto上で動くAPI</a></span>
-			<img width=500 src="https://camo.githubusercontent.com/41345cfe284bf618ba6dd6b5a1c28aba33e98237f0dbabdaf7779085666bab65/68747470733a2f2f692e696d6775722e636f6d2f4143395942356c2e676966">
-		</li>
-		<li><span class="title"></span><span class="link"><a target=_blank href="https://scrutinizer-ci.com/g/dumpier/php-presto-framework/">Scrutinizerのコード解析採点スコア（自作PHP軽量フレームワークPresto）</a></span></li>
-		<li><span class="title"></span><span class="link"><a target=_blank href="https://dumpier.github.io/javascript-presto/pages/battle/index.html">Javascriptバトル演出</a></span></li>
-		<li><span class="title"></span><span class="link"><a target=_blank href="https://dumpier.github.io/javascript-presto/pages/webgl/index.html">Javascript 3D飛行機</a></span></li>
-		<li><span class="title"></span><span class="link"><a target=_blank href="https://dumpier.github.io/pages/freelance/tax/index.html">Javascript 税金を計算して見た</a>
-		<li><span class="title"></span><span class="link"><a target=_blank href="https://dumpier.github.io/javascript-presto/pages/web/regist.html">会員登録フォーム</a></span></li>
-		<li>
-			<span class="title"></span><span class="link"><a target=_blank href="https://github.com/nonecense/hintnote/blob/master/README.md">Unity3Dで開発したアプリ</a></span>
-			<img width=500 src="https://camo.githubusercontent.com/c322559a0afec4e374e54b19452ac7a7af0c9155dd95d3b3ae63f079e49cdae5/687474703a2f2f692e696d6775722e636f6d2f4c32766f354d592e706e67">
-		</li>
-		<li><span class="title"></span><span class="link"><a target=_blank href="https://github.com/dumpier/watchin">サーバー監視環境</a><br>VirtualBox + Vagrant + Coreos(docker, docker-compose, nginx, php, mysql, mailhog)<br>Prometheus + Grafana + Alertmanager</span></li>
-	</ul>
 
 </body>
 </html>
