@@ -15,7 +15,6 @@ const myjs = {
     type(obj) { obj = obj || this.elements; return Object.prototype.toString.call(obj).slice(8,-1) || typeof(obj); },
     isNodeList(obj) { return this.type()=="NodeList" ? true:false; },
     isHtmlElement(obj) { return this.type(obj).match(/^HTML.+Element$/) ? true:false; },
-    param(name) { return (new URL(window.location.href)).searchParams.get(name); },
 
     show() { this.all().forEach(el=>{el.style.display = "block";}); },
     hide() { this.all().forEach(el=>{el.style.display = "none";}); },
@@ -31,7 +30,14 @@ const myjs = {
     append(html) { this.all().forEach(el=>{el.innerHTML+=html;}); return this; },
     remove(selector) { this.all().forEach(el=>{el.querySelectorAll(selector).forEach((sub)=>{ sub.remove(); });}); return this; },
 
-    find(selector){  },
+    find(selector){
+        const datas=[];
+        this.all().forEach((el)=>{
+            let data = el.querySelectorAll(selector);
+            if (data) { datas.push(data); }
+        });
+        return this.instance(datas);
+    },
     children(selector){  },
     parent(selector){  },
     closest(selector){  },
@@ -47,32 +53,32 @@ const myjs = {
     },
 };
 
-myjs.req = {
+myjs.req = myjs.req || {
     url:(url)=>{ return new URL(url===undefined ? window.location.href : url); },
     base:()=>{ return window.location.href.replace(/\?.+/g, ""); },
-    get:function(name){ return name===undefined ? this.url().searchParams.getAll() : this.url().searchParams.get(name); },
+    get(name){ return name===undefined ? this.url().searchParams.getAll() : this.url().searchParams.get(name); },
 };
 
 myjs.attribute = {
-    access:function(name, val){
+    access(name, val){
         if(val===undefined) { return this.attribute.get(name); }
         this.attribute.set(name, val);
         return this;
     },
-    has:function(name){ return this.get().hasAttribute(name); },
-    get:function(name){ return this.get().getAttribute(name); },
-    set:function(name, val){ this.get().setAttribute(name, val); return this; },
-    remove:function(name){ this.get().removeAttribute(name, val); return this; },
+    has(name){ return this.get().hasAttribute(name); },
+    get(name){ return this.get().getAttribute(name); },
+    set(name, val){ this.get().setAttribute(name, val); return this; },
+    remove(name){ this.get().removeAttribute(name, val); return this; },
 };
 
 myjs.css = {};
 myjs.css.id = {};
 myjs.css.style = {};
 myjs.css.class = {
-    get:function(){ return this.first().classList.value; },
-    has:function(name){ return this.first().classList.contains(name); },
-    add:function(...name){ this.all().forEach(el=>{el.classList.add(...name)}); return obj; },
-    remove:function(name){ this.all().forEach(el=>{el.classList.remove(name)}); return obj; },
-    toggle:function(name){ this.all().forEach(el=>{el.classList.toggle(name)}); return obj; },
-    replace:function(name, new_name){ this.all().forEach(el=>{el.classList.replace(name, new_name)}); return obj; },
+    get(){ return this.first().classList.value; },
+    has(name){ return this.first().classList.contains(name); },
+    add(...name){ this.all().forEach(el=>{el.classList.add(...name)}); return obj; },
+    remove(name){ this.all().forEach(el=>{el.classList.remove(name)}); return obj; },
+    toggle(name){ this.all().forEach(el=>{el.classList.toggle(name)}); return obj; },
+    replace(name, new_name){ this.all().forEach(el=>{el.classList.replace(name, new_name)}); return obj; },
 };

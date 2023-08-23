@@ -44,6 +44,9 @@ window.onload=()=>{
 	app.render("#app");
 	$("input[type=text].amount, input[type=text].age").on("change", function(){ app.input.change(); });
 	$(".loading").hide();
+
+	// test
+	console.log($("#app").find("tr"));
 	console.log($(".loading").css.class.has("test"), $(".loading").css.class.has("is-test"));
 }
 

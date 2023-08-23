@@ -52,7 +52,6 @@ var tax = tax || {
         $$.get(`yearly-2-0`).textContent = total.cost;
         // 合計控除
         $$.get(`yearly-3-0`).textContent = total.deduction;
-
         // 課税所得額
         $$.get(`yearly-4-0`).textContent = total.taxable;
         // 国民健康保険年間所得額
@@ -63,6 +62,7 @@ var tax = tax || {
         $$.get(`yearly-4-2`).textContent = `${income_tax_rate}%`;
         $$.get(`income_tax_rate`).textContent = `(税率：${income_tax_rate}%)`;
 
+        // 納税額
         let tax_amount = 0;
         // 住民税・所得割
         tax_amount = total.taxable/10;
