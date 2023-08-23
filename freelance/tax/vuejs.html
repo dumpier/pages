@@ -18,7 +18,7 @@
         <span id="links" v-html="links"></span>
         <span v-html="mode"></span>
         <!-- <div id="content" v-html="template"></div> -->
-        <div id="content"><tax-component/></div>
+        <div id="content"><component-tax/></div>
     </div>
 </body>
 
@@ -92,7 +92,7 @@ const app = createApp(option.current);
 // Contents of v-html are inserted as plain HTML - Vue template syntax will not be processed. If you find yourself trying to compose templates using v-html, try to rethink the solution by using components instead.
 // v-html の内容は、プレーンな HTML として挿入されます - Vue テンプレートの構文は処理されません。もし、v-html を使ってテンプレートを構成しようとしているのであれば、代わりにコンポーネントを使うなどして解決策を見直してみてください。
 // v-html 的内容直接作为普通 HTML 插入—— Vue 模板语法是不会被解析的。如果你发现自己正打算用 v-html 来编写模板，不如重新想想怎么使用组件来代替。
-app.component("tax-component", {
+app.component("component-tax", {
     data(){
         return {
         }
