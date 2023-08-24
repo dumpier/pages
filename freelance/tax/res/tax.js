@@ -5,17 +5,8 @@ var $$ = $$ || {
 
 var tax = tax || {
     refresh(){
-        const total = {
-            /*収入*/income:0,
-            /*支出*/cost:0,
-            /*控除*/deduction:0,
-            /*課税所得*/taxable:0,
-            /*税金*/tax:0,
-            /*年金*/pension:0,
-            /*保険*/insurance:0,
-            /*支払総額*/payment:0,
-            /*手取総額*/after_tax:0,
-        };
+        // 合計額の初期化
+        const total = Object.create(tax.total);
 
         // datasetに設定した初期値の反映（v-modelのを使うとvalueが無効化されるのでdatasetに初期値を設定する）
         $$.all(`input[type="text"]`).forEach((input)=>{
@@ -81,8 +72,8 @@ var tax = tax || {
 
         // 年金
         // 国民年金
-        let tax_count = $$.get("nenkin-count").value;
-        tax_amount = (1.654*12*tax_count).toFixed(1);
+        let pension_count = $$.get("nenkin-count").value;
+        tax_amount = (1.654*12*pension_count).toFixed(1);
         total.pension += this.eval(tax_amount);
         $$.get(`yearly-8-1`).textContent = tax_amount;
         // 合計年金
@@ -126,7 +117,6 @@ var tax = tax || {
     },
 
     eval:(v)=>{ return Number((myjs.type(v)=="String" && v.match(/^=/)) ? eval(v.slice(1)) : v); },
-
     rate:{
         income(taxable){
             // 所得税率定義（195万以上10％、330万以上20％、695万以上23％。。。）
@@ -162,4 +152,15 @@ var tax = tax || {
         // 個人事業税
         tax(taxable){ return (taxable>=290 ? (taxable-290)*0.05 : 0).toFixed(1); },
     },
+    total:{
+        /*収入*/income:0,
+        /*支出*/cost:0,
+        /*控除*/deduction:0,
+        /*課税所得*/taxable:0,
+        /*税金*/tax:0,
+        /*年金*/pension:0,
+        /*保険*/insurance:0,
+        /*支払総額*/payment:0,
+        /*手取総額*/after_tax:0,
+    }
 };
