@@ -2,7 +2,7 @@ const myjs={
     elements:[],
     instance(selector){
         if(selector===undefined){return myjs;}
-        const obj=Object.assign({},this);
+        const obj=Object.create(this);
         obj.elements=this.type(selector)=="String"?document.querySelectorAll(selector):selector;
         [obj.attribute, obj.css, obj.css.id, obj.css.style, obj.css.class].forEach((p)=>{Object.assign(p,obj);});
         return obj;
@@ -19,36 +19,17 @@ const myjs={
     hide(){this.all().forEach(el=>{el.style.display="none";});},
     html(val){return this._access("innerHTML",val);},
     text(val){return this._access("textContent",val);},
-    _access(prop,val){
-        if(val===undefined){return this.first()[prop];}
-        this.all().forEach(el=>{el[prop]=val});
-        return this;
-    },
+    _access(prop,val){ if(val===undefined){return this.first()[prop];} this.all().forEach(el=>{el[prop]=val}); return this; },
     prepend(html){this.all().forEach(el=>{el.innerHTML=html+el.innerHTML;});return this;},
     append(html){this.all().forEach(el=>{el.innerHTML+=html;});return this;},
     remove(selector){this.all().forEach(el=>{el.querySelectorAll(selector).forEach((sub)=>{sub.remove();});});return this;},
-
-    find(selector){
-        const elements=[];
-        this.all().forEach((el)=>{
-            let element=el.querySelectorAll(selector);
-            if(element){elements.push(element);}
-        });
-        return this.instance(elements);
-    },
-    children(selector){},
-    parent(selector){},
-    closest(selector){},
-    next(selector){},
-    before(selector){},
-
+    find(selector){ const elements=[]; this.all().forEach(el=>{ let element=el.querySelectorAll(selector); if(element){elements.push(element);} }); return this.instance(elements); },
+    children(){return this.instance(this.first().children);},
+    parent(){return this.instance(this.first().parentElement);},
+    closest(selector){ return this.instance(this.first().closest(selector)); },
     prop(name,val){return this._access(name,val);},
     attr(name,val){return this._access(name,val);},
-    val(val){
-        if(val===undefined){return this.first().value;}
-        this.all().forEach(el=>{el.value=val});
-        return this;
-    },
+    val(val){ if(val===undefined){return this.first().value;} this.all().forEach(el=>{el.value=val}); return this;},
 };
 
 myjs.req={
@@ -58,11 +39,7 @@ myjs.req={
 };
 
 myjs.attribute={
-    access(name,val){
-        if(val===undefined){return this.attribute.get(name);}
-        this.attribute.set(name,val);
-        return this;
-    },
+    access(name,val){if(val===undefined){return this.attribute.get(name);} this.attribute.set(name,val);return this;},
     has(name){return this.get().hasAttribute(name);},
     get(name){return this.get().getAttribute(name);},
     set(name,val){this.get().setAttribute(name,val);return this;},
@@ -90,4 +67,3 @@ myjs.css.class={
     toggle(name){this.all().forEach(el=>{el.classList.toggle(name)});return obj;},
     replace(name,new_name){this.all().forEach(el=>{el.classList.replace(name,new_name)});return obj;},
 };
-
