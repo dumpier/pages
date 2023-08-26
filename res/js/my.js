@@ -2,7 +2,7 @@ const myjs={
     elements:[],
     instance(selector){
         if(selector===undefined){return myjs;}
-        const obj=Object.create(this);
+        const obj=Object.assign({}, this);
         obj.elements=this.type(selector)=="String"?document.querySelectorAll(selector):selector;
         [obj.attribute, obj.css, obj.css.id, obj.css.style, obj.css.class].forEach((p)=>{Object.assign(p,obj);});
         return obj;

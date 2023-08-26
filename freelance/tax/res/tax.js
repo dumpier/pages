@@ -10,7 +10,7 @@ var tax = tax || {
 
         // datasetに設定した初期値の反映（v-modelのを使うとvalueが無効化されるのでdatasetに初期値を設定する）
         $$.all(`input[type="text"]`).forEach((input)=>{
-            input.value = input.value=="" ? input.dataset.value : input.value;
+            input.value = input.value=="" ? input.dataset.value ?? "" : input.value;
         });
 
         // 入力金額の走査
