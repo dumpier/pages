@@ -46,8 +46,8 @@
 				<img width=500 class="d-block img-fluid" src="../res/images/demo/3d-billiard/billiard-table.png"/>
 				<img width=500 class="d-block img-fluid" src="../res/images/demo/3d-billiard/billiard-house.png"/>
 
-				<span style="display:block; margin-top:20px;"><u>TODO やってみたいこと</u></span>
-				<ul>
+				<span style="display:block; margin-top:20px; cursor: pointer;" onclick="const el=document.getElementById('todo').style; el.display=el.display=='block' ? 'none':'block';"><u>TODO やってみたいこと</u></span>
+				<ul id="todo" style="display: none;">
 					<li>(2023-2024)Javascriptフレームワークを学ぶ（Vue, Nuxt, React）</li>
 					<li>(2023-2024)Nodejs、Golangを学ぶ</li>
 					<li>(2023-2024)Javaを思い出してみる</li>
