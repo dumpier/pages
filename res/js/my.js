@@ -19,6 +19,12 @@ const myjs={
     hide(){this.all().forEach(el=>{el.style.display="none";});},
     html(val){return this._access("innerHTML",val);},
     text(val){return this._access("textContent",val);},
+    trim(){ let txt=this.text().replace(/(^\s+|\s+$)/gm, ""); this.text(txt); return txt; },
+    table(colspan){
+        let html = `<table class="table border">`+this.trim().replace(/^/gm, "<tr><td>").replace(/$/gm, "</td></tr>").replace(/\t/gm, "</td><td>") + `</table>`;
+        if (colspan) html = html.replace(/<tr><td># (.+?)<\/td><\/tr>/gm, `<tr><th colspan="${colspan}">$1<\/th><\/tr>`);
+        this.html(html);
+    },
     _access(prop,val){ if(val===undefined){return this.first()[prop];} this.all().forEach(el=>{el[prop]=val}); return this; },
     prepend(html){this.all().forEach(el=>{el.innerHTML=html+el.innerHTML;});return this;},
     append(html){this.all().forEach(el=>{el.innerHTML+=html;});return this;},

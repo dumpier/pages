@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="開発関連メモ" />
+    <title>開発関連メモ</title>
+    <link href="../res/css/default.css" rel="stylesheet">
+    <script src="../res/js/my.js"></script>
+</head>
+<body>
+    <div class="loading"><div class="loader"></div></div>
+    <h1>開発関連メモ</h1>
+    <span id="links"></span>
+    <div id="content" class="flex">
+        <div class="column">
+            <span class="bold">MariaDB</span>
+            <a target="mariadb" href="https://mariadb.org/about/#maintenance-policy">https://mariadb.org/about/#maintenance-policy</a>
+            <div id="mariadb" class="table">
+                # Currently maintained long-term releases
+                Release series	Stable (GA) Date	End-of-life
+                10.11	16 Feb 2023	Feb 2028
+                10.6	6 Jul 2021	Jul 2026
+                10.5	24 Jun 2020	Jun 2025
+                10.4	18 Jun 2019	Jun 2024
+                # Currently maintained short-term releases
+                Release series	Stable (GA) Date	End-of-life
+                11.2	In development	1 year after GA
+                11.1	21 August 2023	August 2024
+                11.0	6 June 2023	June 2024
+                10.10	17 Nov 2022	Nov 2023
+                10.9	22 Aug 2022	Aug 2023
+                # Unmaintained releases
+                Release series	Stable (GA) Date	End-of-life
+                10.8	20 May 2022	20 May 2023
+                10.7	9 Feb 2022	9 Feb 2023
+                10.3	25 May 2018	25 May 2023
+                10.2	23 May 2017	23 May 2022
+                10.1	17 Oct 2015	17 Oct 2020
+                10.0	31 Mar 2014	31 Mar 2019
+                5.5	11 Apr 2012	11 Apr 2020
+                5.3	29 Feb 2012	1 Mar 2017
+                5.2	10 Nov 2010	10 Nov 2015
+                5.1	1 Feb 2010	1 Feb 2015
+            </div>
+        </div>
+        <div class="column">
+            <span class="bold">PHP</span>
+            <div id="php" class="table">
+                # PHP 公式サポート期限
+                バージョン	初回リリース日	最新リリース	最新リリース日	アクティブサポート	セキュリティサポート
+                8.2	2022/12/08	8.2.3	2023/02/14	2024/12/08	2025/12/08
+                8.1	2021/11/25	8.1.16	2023/02/14	2023/11/25	2024/11/25
+                8.0	2020/11/26	8.0.28	2023/02/14	2022/11/26	2023/11/26
+                # 公式サポートが終了した PHP
+                バージョン	初回リリース日	最新リリース	最新リリース日	アクティブサポート	セキュリティサポート
+                7.4	2019/11/28	7.4.33	2022/11/03	2021/11/28 (終了)	2022/11/28 (終了)
+                7.3	2018/12/06	7.3.33	2021/11/18	2020/12/06 (終了)	2021/12/06 (終了)
+                7.2	2017/11/30	7.2.34	2020/10/01	2019/11/30 (終了)	2020/11/30 (終了)
+                7.1	2016/12/01	7.1.33	2019/10/24	2018/12/01 (終了)	2019/12/01 (終了)
+                7.0	2015/12/03	7.0.33	2018/12/06	2017/12/03 (終了)	2018/12/03 (終了)
+                5.6	2014/08/28	5.6.40	2019/01/10	2017/01/19 (終了)	2018/12/31 (終了)
+                5.5	2013/06/20	5.5.38	2016/07/21	2015/07/10 (終了)	2016/07/10 (終了)
+                5.4	2012/03/01	5.4.45	2015/09/03	2014/09/14 (終了)	2015/09/14 (終了)
+                5.3	2009/06/30	5.3.29	2014/08/14	----/--/-- (終了)	2014/08/14 (終了)
+                5.2	2006/11/02	5.2.17	2011/01/06	----/--/-- (終了)	2011/01/06 (終了)
+                5.1	2005/11/24	5.1.6	2006/08/24	----/--/-- (終了)	2006/08/24 (終了)
+                5.0	2004/07/13	5.0.5	2005/09/05	----/--/-- (終了)	2005/09/05 (終了)
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+$=selector=>{ return myjs.instance(selector); }
+
+window.onload=()=>{
+    $("#mariadb").table(3);
+    $("#php").table(6);
+
+    setTimeout(()=>{$(".loading").hide();}, 300);
+}
+</script>
+</html>
