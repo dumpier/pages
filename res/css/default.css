@@ -1,10 +1,10 @@
 * { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; color:#333; }
 body { margin:auto; text-align:center; background:#f9f9f9; margin-bottom:50px; }
 
-div#content { text-align:center; font-size:9pt; margin:auto; width:900px; }
+div#content { text-align:center; font-size:9pt; margin:auto; }
 div#content > * { text-align:left; }
-div.flex { display: flex; }
-div.flex div.column { margin: 5px; width: 50%; }
+div.flex { display: flex; justify-content: center; }
+div.flex div.column { margin: 5px; }
 
 table.table { width: 100%; }
 table.table.border { border-collapse: separate; border-spacing: 1px; background:#DDD; }
@@ -43,3 +43,7 @@ div.loading { position:fixed; z-index:10001; background:#f9f9f9; width: 100%; he
 
 ul.inline { list-style: none; }
 ul.inline li { display: inline-block; margin-right:10px; }
+
+@media (max-width: 800px) {
+    div.flex { flex-direction: column; }
+}
