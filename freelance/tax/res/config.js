@@ -38,9 +38,12 @@ var config = config || {
                 <tr><td>経費（補正用）</td><td class="amount cost" id="monthly-cost-2"></td><td class="right" id="yearly-cost-2"><input type="text" @change="refresh" class="amount cost" id="input-yearly-cost-2"></td></tr>
 
                 <tr><th colspan="2">控除</th><td class="amount monthly cost underline" id="monthly-deduction-0"></td><td class="amount yearly cost underline bold" id="yearly-deduction-0"></td></tr>
-                <tr><th rowspan="11"></th><td><span>基礎控除<span class="balloon">※納税者本人の合計所得金額が<br>　・2,400万円以下、48万円<br>　・2,400万円超2,450万円以下、32万円<br>　・2,450万円超2,500万円以下、16万円<br>　・2,500万円超、０円<br><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1199.htm" target=deduction_1>国税庁の詳細ページ</a></span></td>
+                <tr><th rowspan="11"></th>
+                    <td><span>基礎控除<span class="balloon">※納税者本人の合計所得金額が<br>　・2,400万円以下、48万円<br>　・2,400万円超2,450万円以下、32万円<br>　・2,450万円超2,500万円以下、16万円<br>　・2,500万円超、０円<br><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1199.htm" target=deduction_1>国税庁の詳細ページ</a></span></span></td>
                     <td class="amount cost" id="monthly-deduction-1"></td><td class="right" id="yearly-deduction-1"><input type="text" @change="refresh" class="amount cost" id="input-yearly-deduction-1" data-value="48"></td></tr>
-                <tr><td><span>青色申告控除<span class="balloon">※申告方法により、控除金額が10万円、55万円、65万円に別れる<br><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2072.htm" target= target=deduction_2>国税庁の詳細ページ</a></span></span></td><td class="amount cost" id="monthly-deduction-2"></td><td class="right" id="yearly-deduction-2"><input type="text" @change="refresh" class="amount cost" id="input-yearly-deduction-2" data-value="65"></td></tr>
+                <tr>
+                    <td><span>青色申告控除<span class="balloon">※申告方法により、控除金額が10万円、55万円、65万円に別れる<br><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2072.htm" target="deduction_2">国税庁の詳細ページ</a></span></span></td>
+                    <td class="amount cost" id="monthly-deduction-2"></td><td class="right" id="yearly-deduction-2"><input type="text" @change="refresh" class="amount cost" id="input-yearly-deduction-2" data-value="65"></td></tr>
                 <tr><td>社会保険料控除</td><td class="amount cost" id="monthly-deduction-3"></td><td class="right" id="yearly-deduction-3"><input type="text" @change="refresh" class="amount cost" id="input-yearly-deduction-3"></td></tr>
                 <tr><td>小規模企業共済等掛金控除</td><td class="amount cost" id="monthly-deduction-4"></td><td class="right" id="yearly-deduction-4"><input type="text" @change="refresh" class="amount cost" id="input-yearly-deduction-4"></td></tr>
                 <tr><td>生命保険料控除</td><td class="amount cost" id="monthly-deduction-5"></td><td class="right" id="yearly-deduction-5"><input type="text" @change="refresh" class="amount cost" id="input-yearly-deduction-5"></td></tr>
