@@ -23,6 +23,13 @@ var tax = tax || {
             let amount_monthly = (amount/12).toFixed(1);
             $$.get(`monthly-${css.id_common}`).textContent = amount ? amount_monthly : "";
 
+            // 消費税、年金補正、保険補正などは別で合計する
+            // 合計税金
+            total.tax += css.id.match(/^input-yearly-tax/) ? amount : 0;
+            total.pension += css.id.match(/^input-yearly-pension/) ? amount : 0;
+            total.insurance += css.id.match(/^input-yearly-insurance/) ? amount : 0;
+            if (input.classList.contains("payment")) { return; }
+
             // 課税対象か、非課税対象か
             let plus_minuse = input.classList.contains("cost")? -1 : 1;
 
@@ -31,11 +38,10 @@ var tax = tax || {
             // 課税所得額
             total.taxable += plus_minuse*amount;
             // 合計経費
-            total.cost += css.id.match(/^input-yearly-2/) ? amount : 0;
+            total.cost += css.id.match(/^input-yearly-cost/) ? amount : 0;
             // 合計控除
-            total.deduction += css.id.match(/^input-yearly-3/) ? amount : 0;
+            total.deduction += css.id.match(/^input-yearly-deduction/) ? amount : 0;
         });
-
 
         // 合計売上
         $$.get(`yearly-income-0`).textContent = total.income;

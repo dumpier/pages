@@ -29,15 +29,15 @@ var config = config || {
                 <tr><th colspan="2" class="diagonal">入力用(数式が使用可能。例、=5*2)</th><th>月間(万円)</th><th>年間(万円)</th></tr>
             </thead>
             <tbody>
-                <tr><th colspan="2">収入</th><td class="amount monthly" id="monthly-income-0"></td><td class="amount yearly bold" id="yearly-income-0"></td></tr>
+                <tr><th colspan="2">収入</th><td class="amount monthly underline" id="monthly-income-0"></td><td class="amount yearly underline bold" id="yearly-income-0"></td></tr>
                 <tr><th rowspan="2"></th><td>売上</td><td class="amount income" id="monthly-income-1"></td><td class="right" id="yearly-income-1"><input type="text" @change="refresh" class="amount income" id="input-yearly-income-1" data-value="600"></td></tr>
                 <tr><td>売上（補正用）</td><td class="amount income" id="monthly-income-2"></td><td class="amount" id="yearly-income-2"><input type="text" @change="refresh" class="amount income" id="input-yearly-income-2"></td></tr>
 
-                <tr><th colspan="2">経費</th><td class="amount monthly cost" id="monthly-cost-0"></td><td class="amount yearly cost bold" id="yearly-cost-0"></td></tr>
+                <tr><th colspan="2">経費</th><td class="amount monthly cost underline" id="monthly-cost-0"></td><td class="amount yearly cost underline bold" id="yearly-cost-0"></td></tr>
                 <tr><th rowspan="2"></th><td>経費</td><td class="amount cost" id="monthly-cost-1"></td><td class="right" id="yearly-cost-1"><input type="text" @change="refresh" class="amount cost" id="input-yearly-cost-1" data-value="200"></td></tr>
                 <tr><td>経費（補正用）</td><td class="amount cost" id="monthly-cost-2"></td><td class="right" id="yearly-cost-2"><input type="text" @change="refresh" class="amount cost" id="input-yearly-cost-2"></td></tr>
 
-                <tr><th colspan="2">控除</th><td class="amount monthly cost" id="monthly-deduction-0"></td><td class="amount yearly cost bold" id="yearly-deduction-0"></td></tr>
+                <tr><th colspan="2">控除</th><td class="amount monthly cost underline" id="monthly-deduction-0"></td><td class="amount yearly cost underline bold" id="yearly-deduction-0"></td></tr>
                 <tr><th rowspan="11"></th><td><span>基礎控除<span class="balloon">※納税者本人の合計所得金額が<br>　・2,400万円以下、48万円<br>　・2,400万円超2,450万円以下、32万円<br>　・2,450万円超2,500万円以下、16万円<br>　・2,500万円超、０円<br><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1199.htm" target=deduction_1>国税庁の詳細ページ</a></span></td>
                     <td class="amount cost" id="monthly-deduction-1"></td><td class="right" id="yearly-deduction-1"><input type="text" @change="refresh" class="amount cost" id="input-yearly-deduction-1" data-value="48"></td></tr>
                 <tr><td><span>青色申告控除<span class="balloon">※申告方法により、控除金額が10万円、55万円、65万円に別れる<br><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2072.htm" target= target=deduction_2>国税庁の詳細ページ</a></span></span></td><td class="amount cost" id="monthly-deduction-2"></td><td class="right" id="yearly-deduction-2"><input type="text" @change="refresh" class="amount cost" id="input-yearly-deduction-2" data-value="65"></td></tr>
@@ -55,7 +55,7 @@ var config = config || {
                 <tr><td>住宅ローン控除</td><td class="amount cost" id="monthly-deduction-10"></td><td class="amount" id="yearly-deduction-10"><input type="text" @change="refresh" class="amount cost" id="input-yearly-deduction-10"></td></tr>
                 <tr><td>控除（補正用）</td><td class="amount cost" id="monthly-deduction-11"></td><td class="amount" id="yearly-deduction-11"><input type="text" @change="refresh" class="amount cost" id="input-yearly-deduction-11"></td></tr>
 
-                <tr><th colspan="2"><span style="color:blue;">課税所得額</span></th><td class="amount monthly" id="monthly-taxable-0"></td><td class="amount yearly bold" id="yearly-taxable-0"></td></tr>
+                <tr><th colspan="2"><span style="color:blue;">課税所得額</span></th><td class="amount monthly underline" id="monthly-taxable-0"></td><td class="amount yearly underline bold" id="yearly-taxable-0"></td></tr>
                 <tr><th rowspan="2"></th>
                     <td><span>国民健康保険年間所得額<span class="balloon">※<span style="color:blue;">課税所得額</span>-43万円</span></span></td>
                     <td class="amount monthly" id="monthly-taxable-1"></td><td class="amount yearly bold" id="yearly-taxable-1"></td></tr>
@@ -73,20 +73,21 @@ var config = config || {
                 <tr><th colspan="4" class="diagonal">結果表示用</th><th>月間(万円)</th><th>年間(万円)</th></tr>
             </thead>
             <tbody>
-                <tr><th colspan="4">税金</th><td class="amount monthly"></td><td class="amount yearly bold" id="yearly-tax-0"></td></tr>
+                <tr><th colspan="4">税金</th><td class="amount monthly underline"></td><td class="amount yearly underline bold" id="yearly-tax-0"></td></tr>
                 <tr><th rowspan="7"></th><td colspan="3">住民税・均等割</td><td class="amount monthly" id="monthly-tax-1"></td><td class="amount yearly" id="yearly-tax-1">0.5</td></tr>
                 <tr><td colspan="3"><span>住民税・所得割<span class="balloon">課税所得額x一律10％<br>※道府県民税が一律4%、市町村民税が一律6%</span></span></td><td class="amount monthly" id="monthly-tax-2"></td><td class="amount yearly" id="yearly-tax-2"></td></tr>
                 <tr><td colspan="3"><span>個人事業税<span class="balloon">※（課税所得額-290万円）x 5%</span></span></td><td class="amount monthly" id="monthly-tax-3"></td><td class="amount yearly" id="yearly-tax-3"></td></tr>
                 <tr><td colspan="3"><span>所得税<span id="income_tax_rate" class="ml-10"></span><span class="balloon">課税所得額x所得税率</span></span></td><td class="amount monthly" id="monthly-tax-4"></td><td class="amount yearly" id="yearly-tax-4"></td></tr>
-                <tr><td colspan="3"><span>消費税<span class="balloon">※課税事業者か免税事業者かにより異なる<br><a href="https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice_about.htm" target=tax_5>国税庁の詳細ページ</a></span></span></td><td class="amount monthly" id="monthly-tax-5"></td><td class="amount yearly" id="yearly-tax-5"></td></tr>
-                <tr><td colspan="3">固定資産税</td><td class="amount monthly" id="monthly-tax-6"></td><td class="amount" id="yearly-tax-6"><input type="text" @change="refresh" class="amount" id="input-yearly-tax-6"></td></tr>
-                <tr><td colspan="3">税金（補正用）</td><td class="amount monthly" id="monthly-tax-10"></td><td class="amount yearly" id="yearly-tax-10"><input type="text" @change="refresh" class="amount" id="input-yearly-tax-10"></td></tr>
+                <tr><td colspan="3"><span>消費税<span class="balloon">※課税事業者か免税事業者かにより異なる<br><a href="https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice_about.htm" target=tax_5>国税庁の詳細ページ</a></span></span></td>
+                    <td class="amount monthly" id="monthly-tax-5"></td><td class="amount" id="yearly-tax-5"><input type="text" @change="refresh" class="amount payment" id="input-yearly-tax-5"></td></tr>
+                <tr><td colspan="3">固定資産税</td><td class="amount monthly" id="monthly-tax-6"></td><td class="amount" id="yearly-tax-6"><input type="text" @change="refresh" class="amount payment" id="input-yearly-tax-6"></td></tr>
+                <tr><td colspan="3">税金（補正用）</td><td class="amount monthly" id="monthly-tax-10"></td><td class="amount" id="yearly-tax-10"><input type="text" @change="refresh" class="amount payment" id="input-yearly-tax-10"></td></tr>
 
-                <tr><th colspan="4">年金</th><td class="amount monthly"></td><td class="amount yearly bold" id="yearly-pension-0"></td></tr>
+                <tr><th colspan="4">年金</th><td class="amount monthly underline"></td><td class="amount yearly underline bold" id="yearly-pension-0"></td></tr>
                 <tr><th rowspan="2"></th><td colspan="2">国民年金</td><td><span class="inline-right">加入人数<input type="text" @change="refresh" class="right number ml-5" id="nenkin-count" data-value="1"></span></td><td class="amount monthly" id="monthly-pension-1"></td><td class="amount yearly" id="yearly-pension-1"></td></tr>
-                <tr><td colspan="3">年金（補正用）</td><td class="amount monthly" id="monthly-pension-2"></td><td class="amount yearly" id="yearly-pension-2"><input type="text" @change="refresh" class="amount" id="input-yearly-pension-2"></td></tr>
+                <tr><td colspan="3">年金（補正用）</td><td class="amount monthly" id="monthly-pension-2"></td><td class="amount" id="yearly-pension-2"><input type="text" @change="refresh" class="amount payment" id="input-yearly-pension-2"></td></tr>
 
-                <tr><th colspan="4">保険</th><td class="amount monthly" id="monthly-insurance-0"></td><td class="amount yearly bold" id="yearly-insurance-0"></td></tr>
+                <tr><th colspan="4">保険</th><td class="amount monthly underline" id="monthly-insurance-0"></td><td class="amount yearly underline bold" id="yearly-insurance-0"></td></tr>
                 <tr><th rowspan="4"></th><th rowspan="4" colspan="2">加入者年齢</th>
                     <td class="right"><input type="text" @change="refresh" class="right age"></td><td class="right"><input type="text" @change="refresh" class="right age"></td><td class="right"><input type="text" @change="refresh" class="right age"></td></tr>
                 <tr><td class="right"><input type="text" @change="refresh" class="right age"></td><td class="right"><input type="text" @change="refresh" class="right age"></td><td class="right"><input type="text" @change="refresh" class="right age"></td></tr>
@@ -98,10 +99,10 @@ var config = config || {
                 <tr><td colspan="3"><span>国民健康保険・所得割<span class="balloon">※(課税所得額-43万円)x7.17%</span></span></td><td class="amount monthly" id="monthly-insurance-3"></td><td class="amount yearly" id="yearly-insurance-3"></td></tr>
                 <tr><td colspan="3"><span>国民健康保険・後期高齢者(支援)<span class="balloon">※(課税所得額-43万円)x2.42%x後期高齢者人数(40歳以上65歳未満の人数)＋1.5万円x加入人数</span></span></td><td class="amount monthly" id="monthly-insurance-4"></td><td class="amount yearly" id="yearly-insurance-4"></td></tr>
                 <tr><td colspan="3"><span>国民健康保険・後期高齢者(介護)<span class="balloon">※(課税所得額-43万円)x2.23%＋1.2万円x後期高齢者人数(40歳以上65歳未満の人数)</span></span></td><td class="amount monthly" id="monthly-insurance-5"></td><td class="amount yearly" id="yearly-insurance-5"></td></tr>
-                <tr><td colspan="3">保険（補正用）</td><td class="amount monthly" id="monthly-insurance-6"></td><td class="amount yearly" id="yearly-insurance-6"><input type="text" @change="refresh" class="amount" id="input-yearly-insurance-6"></td></tr>
+                <tr><td colspan="3">保険（補正用）</td><td class="amount monthly" id="monthly-insurance-6"></td><td class="amount" id="yearly-insurance-6"><input type="text" @change="refresh" class="amount payment" id="input-yearly-insurance-6"></td></tr>
                 <tr><th colspan="4">概要</th><td></td><td></td></tr>
-                <tr><th rowspan="3"></th><td colspan="3">合計支払額（年金・保険・税金）</td><td class="amount monthly" id="monthly-total-1"></td><td class="amount yearly bold" id="yearly-total-1"></td></tr>
-                <tr><td colspan="3">手取り額（経費含む）</td><td class="amount monthly" id="monthly-total-2"></td><td class="amount yearly bold" id="yearly-total-2"></td></tr>
+                <tr><th rowspan="3"></th><td colspan="3">合計支払額（年金・保険・税金）</td><td class="amount monthly underline" id="monthly-total-1"></td><td class="amount yearly underline bold" id="yearly-total-1"></td></tr>
+                <tr><td colspan="3">手取り額（経費含む）</td><td class="amount monthly underline" id="monthly-total-2"></td><td class="amount yearly underline bold" id="yearly-total-2"></td></tr>
             </tbody>
         </table>
     </div>

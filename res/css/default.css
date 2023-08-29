@@ -41,6 +41,7 @@ div.loading { position:fixed; z-index:10001; background:#f9f9f9; width: 100%; he
 
 .ml-5 { margin-left: 5px; }
 .ml-10 { margin-left: 10px; }
+.underline { text-decoration: underline; }
 
 ul.inline { list-style: none; }
 ul.inline li { display: inline-block; margin-right:10px; }
