@@ -28,8 +28,8 @@ input[type=text].age { width: 50px; }
 .inline-right { float:right; }
 .bold { font-weight: bold; }
 
-span:has(span.balloon) { position:relative; display: block; text-decoration: underline; cursor: pointer; }
-span:has(span.balloon):hover .balloon { display: block; }
+span:has(span.balloon), a:has(span.balloon) { position:relative; display: block; text-decoration: underline; cursor: pointer; }
+span:has(span.balloon):hover .balloon, a:has(span.balloon):hover .balloon { display: block; }
 .balloon { position:absolute; left:30px; bottom:20px; padding:10px; border:solid 2px #ddd; background: #f9f9f9; display: none; width: 300px; }
 
 div.loading { position:fixed; z-index:10001; background:#f9f9f9; width: 100%; height: 100%; }

@@ -38,19 +38,19 @@ var tax = tax || {
 
 
         // 合計売上
-        $$.get(`yearly-1-0`).textContent = total.income;
+        $$.get(`yearly-income-0`).textContent = total.income;
         // 合計経費
-        $$.get(`yearly-2-0`).textContent = total.cost;
+        $$.get(`yearly-cost-0`).textContent = total.cost;
         // 合計控除
-        $$.get(`yearly-3-0`).textContent = total.deduction;
+        $$.get(`yearly-deduction-0`).textContent = total.deduction;
         // 課税所得額
-        $$.get(`yearly-4-0`).textContent = total.taxable;
+        $$.get(`yearly-taxable-0`).textContent = total.taxable;
         // 国民健康保険年間所得額
         let insurance = total.taxable-43;
-        $$.get(`yearly-4-1`).textContent = insurance;
+        $$.get(`yearly-taxable-1`).textContent = insurance;
         // 課税所得額による所得税率
         let income_tax_rate = tax.rate.income(total.taxable);
-        $$.get(`yearly-4-2`).textContent = `${income_tax_rate}%`;
+        $$.get(`yearly-taxable-2`).textContent = `${income_tax_rate}%`;
         $$.get(`income_tax_rate`).textContent = `(税率：${income_tax_rate}%)`;
 
         // 納税額
@@ -58,26 +58,26 @@ var tax = tax || {
         // 住民税・所得割
         tax_amount = total.taxable/10;
         total.tax += this.eval(tax_amount);
-        $$.get(`yearly-7-2`).textContent = tax_amount;
+        $$.get(`yearly-tax-2`).textContent = tax_amount;
         // 個人事業税
         let freelance_tax = this.freelance.tax(total.taxable);
         total.tax += this.eval(freelance_tax);
-        $$.get(`yearly-7-3`).textContent = freelance_tax;
+        $$.get(`yearly-tax-3`).textContent = freelance_tax;
         // 所得税
         tax_amount = (total.taxable*income_tax_rate/100);
         total.tax += this.eval(tax_amount);
-        $$.get(`yearly-7-4`).textContent = tax_amount;
+        $$.get(`yearly-tax-4`).textContent = tax_amount;
         // 合計税金
-        $$.get(`yearly-7-0`).textContent = total.tax.toFixed(1);
+        $$.get(`yearly-tax-0`).textContent = total.tax.toFixed(1);
 
         // 年金
         // 国民年金
         let pension_count = $$.get("nenkin-count").value;
         tax_amount = (1.654*12*pension_count).toFixed(1);
         total.pension += this.eval(tax_amount);
-        $$.get(`yearly-8-1`).textContent = tax_amount;
+        $$.get(`yearly-pension-1`).textContent = tax_amount;
         // 合計年金
-        $$.get(`yearly-8-0`).textContent = total.pension;
+        $$.get(`yearly-pension-0`).textContent = total.pension;
 
         // 保険
         // 加入者情報の集計
@@ -85,28 +85,28 @@ var tax = tax || {
         // 国民健康保険・均等割
         tax_amount = 4.5*persons.total;
         total.insurance += Number(tax_amount);
-        $$.get(`yearly-9-2`).textContent = tax_amount;
+        $$.get(`yearly-insurance-2`).textContent = tax_amount;
         // 国民健康保険・所得割
         tax_amount = (insurance*0.0717).toFixed(1);
         total.insurance += Number(tax_amount);
-        $$.get(`yearly-9-3`).textContent = tax_amount;
+        $$.get(`yearly-insurance-3`).textContent = tax_amount;
         // 国民健康保険・後期高齢者(支援)
         tax_amount = (insurance*0.0242*persons.between_40_65+1.5*persons.total).toFixed(1);
         total.insurance += Number(tax_amount);
-        $$.get(`yearly-9-4`).textContent = tax_amount;
+        $$.get(`yearly-insurance-4`).textContent = tax_amount;
         // 国民健康保険・後期高齢者(介護)
         tax_amount = (insurance*0.0223+1.6*persons.between_40_65).toFixed(1);
         total.insurance += Number(tax_amount);
-        $$.get(`yearly-9-5`).textContent = tax_amount;
+        $$.get(`yearly-insurance-5`).textContent = tax_amount;
         // 合計保険
-        $$.get(`yearly-9-0`).textContent = total.insurance.toFixed(1);
+        $$.get(`yearly-insurance-0`).textContent = total.insurance.toFixed(1);
 
         // 概要
         // 合計
         total.payment = (total.tax + total.pension + total.insurance).toFixed(1);
-        $$.get(`yearly-10-1`).textContent = total.payment;
+        $$.get(`yearly-total-1`).textContent = total.payment;
         total.after_tax = (total.income-total.payment).toFixed(1);
-        $$.get(`yearly-10-2`).textContent = total.after_tax;
+        $$.get(`yearly-total-2`).textContent = total.after_tax;
 
         // 月額の計算
         $$.all(`td.amount.yearly`).forEach((td)=>{
