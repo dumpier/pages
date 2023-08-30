@@ -17,7 +17,7 @@
         <div class="column">
             <span class="bold">MariaDB</span>
             <a target="mariadb" href="https://mariadb.org/about/#maintenance-policy">https://mariadb.org/about/#maintenance-policy</a>
-            <div id="mariadb" class="table">
+            <div id="mariadb" class="table" data-col="3">
                 # Currently maintained long-term releases
                 Release series	Stable (GA) Date	End-of-life
                 10.11	16 Feb 2023	Feb 2028
@@ -44,10 +44,23 @@
                 5.2	10 Nov 2010	10 Nov 2015
                 5.1	1 Feb 2010	1 Feb 2015
             </div>
+
+            <div class="bold mt-20">CentOS</div>
+            <div id="centos" class="table" data-col="2">
+                ディストリビューション	サポート期間(EOL)
+                RHEL/CentOS Linux 7	2024年06月
+                RHEL 8/CentOS 以外のクローン	2029年05月(※1)
+                CentOS Linux 8	2029年05月 → 2021/12月(終了済)
+                CentOS Stream 8	2024年05月
+                RHEL 9/CentOS 以外のクローン	2032年05月(※1)
+                CentOS Linux 9	リリースされない
+                CentOS Stream 9	2027年5月
+            </div>
         </div>
+
         <div class="column">
             <span class="bold">PHP</span>
-            <div id="php" class="table">
+            <div id="php" class="table" data-col="6">
                 # PHP 公式サポート期限
                 バージョン	初回リリース日	最新リリース	最新リリース日	アクティブサポート	セキュリティサポート
                 8.2	2022/12/08	8.2.3	2023/02/14	2024/12/08	2025/12/08
@@ -68,6 +81,27 @@
                 5.1	2005/11/24	5.1.6	2006/08/24	----/--/-- (終了)	2006/08/24 (終了)
                 5.0	2004/07/13	5.0.5	2005/09/05	----/--/-- (終了)	2005/09/05 (終了)
             </div>
+
+            <div class="bold mt-20">Red Hat Enterprise Linux (RHEL)</div>
+            <div class="table"data-col="7">
+                バージョン	リリース日	現行ポイント	1つ前のポイント	最新開発版	サポート終了日	サポート終了日(ELS)
+                4	(4) 2005-02-15	(4.9) 2011-02-16	(4.8) 2009-05-19	なし	2012-02-29	2017-03-31
+                5	(5) 2007-03-15	(5.11) 2014-09-16	(5.10) 2013-10-01	なし	2017-03-31	2020-11-30
+                6	(6.0) 2010-11-09	(6.10) 2018-06-19	(6.9) 2017-03-21	なし？	2020-11-30	2024-06-30
+                7	(7.0) 2014-06-09	(7.7) 2019-08-06	(7.6) 2018-10-30	-	2024-06-30	なし？
+                8	(8.0) 2019-05-07	(8.1) 2019-11-05	-	(8.2 Beta) 2020-01-21	2029-05	-
+            </div>
+
+            <div class="bold mt-20">Debian</div>
+            <div class="table"data-col="7">
+                バージョン	コードネーム	リリース日	現行ポイント	1つ前のポイント	次期ポイント予定日	サポート終了日	サポート終了日(LTS)
+                7	Wheezy	(7.0) 2013-05-04	(7.11) 2016-06-04	(7.10) 2016-04-02	なし	2016-04-25	2018-05-31
+                8	Jessie	(8.0) 2015-04-25	(8.11) 2018-06-23	(8.10) 2017-12-09	なし	2018-06-17	2020-06-30
+                9	Stretch	(9.0) 2017-06-17	(9.12) 2020-02-08	(9.11) 2019-09-08	-	-	2022-06
+                10	Buster	2019-07-06	(10.3) 2020-02-08	(10.2) 2019-11-16	-	-	-
+                11	Bullseye	-	-	-	-	-	-
+            </div>
+
         </div>
     </div>
 </body>
@@ -76,8 +110,8 @@
 $=selector=>{ return myjs.instance(selector); }
 
 window.onload=()=>{
-    $("#mariadb").table(3);
-    $("#php").table(6);
+    console.log($("div.table"));
+    $("div.table").all().forEach((el)=>{ $(el).table(el.dataset.col); });
 
     setTimeout(()=>{$(".loading").hide();}, 300);
 }

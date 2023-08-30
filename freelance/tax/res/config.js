@@ -3,7 +3,10 @@ var config = config || {
     <ul class="inline">
         <li><a href="./index.html">jquery版</a></li>
         <li><a href="./js.html">自前js版</a></li>
-        <li><a href="./vuejs.html">vue.js版</a></li>
+        <li><a href="./vue.html">vue.js版</a></li>
+<!--
+        <li><a href="./react.html">react版</a></li>
+-->
     </ul>
     `,
     items:[
@@ -20,6 +23,8 @@ var config = config || {
         ["概要", "合計支払額（年金・保険・税金）", "手取り額（経費含む）"],
         [],
     ],
+
+    toReact(html){ return html.replace(/(\s+)class=/gm, "$1className=").replace(/for/gm, "htmlFor"); },
 
     template:/*html*/`
 <div class="flex">
