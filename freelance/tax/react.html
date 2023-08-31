@@ -10,29 +10,47 @@
     <script src="./res/config.js"></script>
     <script src="./res/tax.js"></script>
     <script src="../../res/js/my.js"></script>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 </head>
 <body>
-    <div class="loading"><div class="loader"></div></div>
+    <div id="loading" class="loading"><div class="loader"></div></div>
     <h1>個人事業主の税金計算(react版)</h1>
     <span id="links"></span>
-    <div id="content"></div>
+    <div id="content"><div id="app" class="flex"></div></div>
+    <div id="dummy" style="display: none;"></div>
 </body>
 
+<script type="text/babel">
+'use strict';
+class TaxApp extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { loading: false };
+    }
 
-<script type="importmap">
-{
-    "imports": {
-        "react":"https://unpkg.com/react@18/umd/react.development.js",
-        "react-dom":"https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    render(){
+        document.getElementById("links").innerHTML = config.links;
+        document.getElementById("app").innerHTML = config.template; // config.toReact(config.template);
+        document.addEventListener("change", function(){ tax.refresh(); });
+        tax.refresh();
+
+        // tax.refresh();
+        if (this.state.loading) {
+            console.log("show");
+            document.getElementById("loading").style.display = "block";
+        } else {
+            console.log("hide");
+            document.getElementById("loading").style.display = "none";
+        }
     }
 }
-</script>
 
-<script type="module">
-import React from "react";
-import ReactDOM from "react-dom";
-
+//ReactDOM.render(React.createElement(TaxApp), document.getElementById("content"));
+const container = document.getElementById("dummy");
+const content = ReactDOM.createRoot(container);
+content.render(React.createElement(TaxApp));
 </script>
 </html>

@@ -136,7 +136,7 @@ var tax = tax || {
         },
     },
     persons:{
-        // 保険加入人数の算出
+        /* 保険加入人数の算出 */
         totalling(){
             const result = {total:0, under_40:0, between_40_65:0, between_66_74:0, after_75:0,};
             $$.all(`input[type=text].age`).forEach(function(input){
@@ -155,7 +155,7 @@ var tax = tax || {
         },
     },
     freelance:{
-        // 個人事業税
+        /* 個人事業税 */
         tax(taxable){ return (taxable>=290 ? (taxable-290)*0.05 : 0).toFixed(1); },
     },
     total:{

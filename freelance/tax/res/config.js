@@ -4,9 +4,7 @@ var config = config || {
         <li><a href="./index.html">jquery版</a></li>
         <li><a href="./js.html">自前js版</a></li>
         <li><a href="./vue.html">vue.js版</a></li>
-<!--
         <li><a href="./react.html">react版</a></li>
--->
     </ul>
     `,
     items:[
