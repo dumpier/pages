@@ -22,7 +22,8 @@ const myjs={
     trim(){ let txt=this.text().replace(/(^\s+|\s+$)/gm, ""); this.text(txt); return txt; },
     table(colspan){
         let html = `<table class="table border">`+this.trim().replace(/^/gm, "<tr><td>").replace(/$/gm, "</td></tr>").replace(/\t/gm, "</td><td>") + `</table>`;
-        if (colspan) html = html.replace(/<tr><td># (.+?)<\/td><\/tr>/gm, `<tr><th colspan="${colspan}">$1<\/th><\/tr>`);
+        if (colspan) html = html.replace(/<tr><td># (.+?<\/td><\/tr>)/gm, `<tr><th colspan="${colspan}">$1`);
+        html = html.replace(/<td>## (.+?)<\/td>/gm, `<th>$1</th>`);
         this.html(html);
     },
     _access(prop,val){ if(val===undefined){return this.first()[prop];} this.all().forEach(el=>{el[prop]=val}); return this; },

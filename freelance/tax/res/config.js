@@ -22,8 +22,6 @@ var config = config || {
         [],
     ],
 
-    toReact(html){ return html.replace(/(\s+)class=/gm, "$1className=").replace(/for/gm, "htmlFor"); },
-
     template:/*html*/`
 <div class="flex">
     <div class="column">

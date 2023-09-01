@@ -15,7 +15,7 @@ table.table > tbody > tr > td.number { text-align:right; }
 .diagonal { background-image: linear-gradient(-45deg, #fff 25%, #ccc 25%, #ccc 50%, #fff 50%, #fff 75%, #ccc 75%, #ccc)!important; background-size: 4px 4px !important; }
 
 div.table { white-space:pre; }
-
+div.collapse { height: auto; overflow: hidden; }
 
 input { border-radius:5px; padding:3px 5px; border:solid 1px #AAA; }
 input[type=text].amount { width: 50px; }
