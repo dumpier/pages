@@ -55,8 +55,7 @@ class TaxApp extends React.Component {
 }
 
 //ReactDOM.render(React.createElement(TaxApp), document.getElementById("content"));
-const container = document.getElementById("dummy");
-const content = ReactDOM.createRoot(container);
-content.render(React.createElement(TaxApp));
+const root = ReactDOM.createRoot(document.getElementById("dummy"));
+root.render(React.createElement(TaxApp));
 </script>
 </html>
