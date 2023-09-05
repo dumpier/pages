@@ -98,7 +98,7 @@ var config = config || {
                 <tr><td class="right"><input type="text" @change="refresh" class="right age"></td><td class="right"><input type="text" @change="refresh" class="right age"></td><td class="right"><input type="text" @change="refresh" class="right age"></td></tr>
                 <tr><td class="right"><input type="text" @change="refresh" class="right age"></td><td class="right"><input type="text" @change="refresh" class="right age"></td><td class="right"><input type="text" @change="refresh" class="right age"></td></tr>
 
-                <tr><th rowspan="6"></th><td colspan="3">国民健康保険・平等割</td><td class="amount monthly" id="monthly-insurance-1"></td><td class="amount yearly" id="yearly-insurance-1"></td></tr>
+                <tr><th rowspan="6"></th><td colspan="3"><span>国民健康保険・平等割<span class="balloon">※市区町村によっては平等割は設定されていません（つまり0円）。</span></span></td><td class="amount monthly" id="monthly-insurance-1"></td><td class="amount yearly" id="yearly-insurance-1"></td></tr>
                 <tr><td colspan="3"><span>国民健康保険・均等割<span class="balloon">※4.5万円x加入人数</span></span></td><td class="amount monthly" id="monthly-insurance-2"></td><td class="amount yearly" id="yearly-insurance-2"></td></tr>
                 <tr><td colspan="3"><span>国民健康保険・所得割<span class="balloon">※(課税所得額-43万円)x7.17%</span></span></td><td class="amount monthly" id="monthly-insurance-3"></td><td class="amount yearly" id="yearly-insurance-3"></td></tr>
                 <tr><td colspan="3"><span>国民健康保険・後期高齢者(支援)<span class="balloon">※(課税所得額-43万円)x2.42%x後期高齢者人数(40歳以上65歳未満の人数)＋1.5万円x加入人数</span></span></td><td class="amount monthly" id="monthly-insurance-4"></td><td class="amount yearly" id="yearly-insurance-4"></td></tr>
