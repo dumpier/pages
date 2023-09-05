@@ -8,7 +8,7 @@ var tax = tax || {
         // 合計額の初期化
         const total = Object.create(tax.total);
         // 累計用のデータ
-        const data = { tax:0, insurance:0, income_tax_rate:0, };
+        const data = {tax:0};
 
         // datasetに設定した初期値の反映（v-modelのを使うとvalueが無効化されるのでdatasetに初期値を設定する）
         $$.all(`input[type="text"]`).forEach((input)=>{
@@ -77,12 +77,12 @@ var tax = tax || {
         // 課税所得額
         $$.get(`yearly-taxable-0`).textContent = total.taxable;
         // 国民健康保険年間所得額
-        data.insurance = total.taxable-43;
-        $$.get(`yearly-taxable-1`).textContent = data.insurance;
+        total.taxable_insurance_income = total.taxable-43;
+        $$.get(`yearly-taxable-1`).textContent = total.taxable_insurance_income;
         // 課税所得額による所得税率
-        data.income_tax_rate = tax.rate.income(total.taxable);
-        $$.get(`yearly-taxable-2`).textContent = `${data.income_tax_rate}%`;
-        $$.get(`income_tax_rate`).textContent = `(税率：${data.income_tax_rate}%)`;
+        total.income_tax_rate = tax.getIncomeTaxRate(total.taxable);
+        $$.get(`yearly-taxable-2`).textContent = `${total.income_tax_rate}%`;
+        $$.get(`income_tax_rate`).textContent = `(税率：${total.income_tax_rate}%)`;
     },
 
     /* 納税額の算出 */
@@ -91,12 +91,13 @@ var tax = tax || {
         data.tax = total.taxable/10;
         total.tax += tax.eval(data.tax);
         $$.get(`yearly-tax-2`).textContent = data.tax;
+
         // 個人事業税
         let freelance_tax = tax.freelance.tax(total.taxable);
         total.tax += tax.eval(freelance_tax);
         $$.get(`yearly-tax-3`).textContent = freelance_tax;
         // 所得税
-        data.tax = (total.taxable * data.income_tax_rate/100);
+        data.tax = (total.taxable * total.income_tax_rate/100);
         total.tax += tax.eval(data.tax);
         $$.get(`yearly-tax-4`).textContent = data.tax;
 
@@ -107,27 +108,26 @@ var tax = tax || {
     /* 年金 */
     pension(total, data){
         // 国民年金
+        // 年金を支払う人数
         let pension_count = $$.get("nenkin-count").value;
         data.tax = (1.654*12*pension_count).toFixed(1);
         total.pension += tax.eval(data.tax);
         $$.get(`yearly-pension-1`).textContent = data.tax;
         // 合計年金
         $$.get(`yearly-pension-0`).textContent = total.pension;
-
     },
 
-    rate:{
-        income(taxable){
-            // 所得税率定義（195万以上10％、330万以上20％、695万以上23％。。。）
-            const rates = { 0:5, 195:10, 330:20, 695:23, 900:33, 1800:40, 4000:45,};
-            let rate = 0;
-            Object.keys(rates).forEach((amount)=>{
-                if (taxable >= amount) { rate = rates[amount]; }
-            });
+    getIncomeTaxRate(taxable){
+        // 所得税率定義（195万以上10％、330万以上20％、695万以上23％。。。）
+        const rates = { 0:5, 195:10, 330:20, 695:23, 900:33, 1800:40, 4000:45,};
+        let rate = 0;
+        Object.keys(rates).forEach((amount)=>{
+            if (taxable >= amount) { rate = rates[amount]; }
+        });
 
-            return rate;
-        },
+        return rate;
     },
+
     insurance:{
         refresh(total, data){
             // 加入者情報の集計
@@ -139,17 +139,17 @@ var tax = tax || {
             $$.get(`yearly-insurance-2`).textContent = data.tax;
 
             // 国民健康保険・所得割
-            data.tax = (data.insurance*0.0717).toFixed(1);
+            data.tax = (total.taxable_insurance_income*0.0717).toFixed(1);
             total.insurance += Number(data.tax);
             $$.get(`yearly-insurance-3`).textContent = data.tax;
 
             // 国民健康保険・後期高齢者(支援)
-            data.tax = (data.insurance*0.0242*persons.between_40_65+1.5*persons.total).toFixed(1);
+            data.tax = (total.taxable_insurance_income*0.0242*persons.between_40_65+1.5*persons.total).toFixed(1);
             total.insurance += Number(data.tax);
             $$.get(`yearly-insurance-4`).textContent = data.tax;
 
             // 国民健康保険・後期高齢者(介護)
-            data.tax = (data.insurance*0.0223+1.6*persons.between_40_65).toFixed(1);
+            data.tax = (total.taxable_insurance_income*0.0223+1.6*persons.between_40_65).toFixed(1);
             total.insurance += Number(data.tax);
             $$.get(`yearly-insurance-5`).textContent = data.tax;
 
@@ -194,6 +194,8 @@ var tax = tax || {
         /*支出*/cost:0,
         /*控除*/deduction:0,
         /*課税所得*/taxable:0,
+        /*国民健康保険の所得*/taxable_insurance_income:0,
+        /*課税所得額による所得税率*/income_tax_rate:0,
         /*税金*/tax:0,
         /*年金*/pension:0,
         /*保険*/insurance:0,
